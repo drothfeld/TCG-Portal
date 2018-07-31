@@ -32,3 +32,26 @@ export const doCreateUserWithEmailAndPassword = (email, password) =>
 }
 export const doSignInWithEmailAndPassword = (email, password) =>
   auth.signInWithEmailAndPassword(email, password);
+
+{
+  /* Sign Out:
+      Logs out the currently signed in user. */
+}
+export const doSignOut = () =>
+  auth.signOut();
+
+{
+  /* Password Reset:
+      Takes email as parameter and sends an email
+      to the user to reset their password. */
+}
+export const doPasswordReset = (email) =>
+  auth.sendPasswordResetEmail(email);
+
+{
+  /* Password Change:
+      Takes the new password as an argument to
+      update the password of a user. */
+}
+export const doPasswordUpdate = (password) =>
+  auth.currentUser.updatePassword(password);
