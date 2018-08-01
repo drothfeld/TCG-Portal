@@ -21,11 +21,8 @@ const App = () =>
 
       <hr/>
 
-      {
-      // If a route matches a path, the respective
-      // component will be displayed.
-      }
-      
+      {/* If a route matches a path, the respective
+      component will be displayed. */}
       <Route
         exact path = {routes.LANDING}
         component = {() => <LandingPage />}
