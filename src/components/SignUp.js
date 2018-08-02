@@ -23,7 +23,7 @@ const INITAL_STATE = {
   error: null,
 };
 
-/* The key value is used as dynamic key
+/* The key value is used as a dynamic key
    to allocate the actual value in the local state object. */
 const byPropKey = (propertyName, value) => () => ({
   [propertyName]: value,
@@ -86,7 +86,7 @@ class SignUpForm extends Component {
       username === '';
 
     /* Each input field gets a value from local state
-       and updatesthe value in local state with OnChange handler. */
+       and updates the value in local state with OnChange handler. */
     return (
       <form onSubmit = { this.onSubmit }>
         <input
