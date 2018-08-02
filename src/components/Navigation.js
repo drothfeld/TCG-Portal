@@ -1,16 +1,32 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import SignOutButton from './SignOut';
 import * as routes from '../constants/routes';
 
-const Navigation = () =>
+/* Determine if user is logged in and assign navigation to show. */
+const Navigation = ({ authUser }) =>
   <div>
-    <ul>
-      <li><Link to={routes.SIGN_IN}>Sign In</Link></li>
-      <li><Link to={routes.LANDING}>Landing</Link></li>
-      <li><Link to={routes.HOME}>Home</Link></li>
-      <li><Link to={routes.ACCOUNT}>Account</Link></li>
-    </ul>
+    { authUser
+      ? <NavigationAuth/>
+      : <NavigationNonAuth/>
+    }
   </div>
 
+/* Navigation to show if user is logged in. */
+const NavigationAuth = () =>
+  <ul>
+    <li><Link to={routes.LANDING}>Landing</Link></li>
+    <li><Link to={routes.HOME}>Home</Link></li>
+    <li><Link to={routes.ACCOUNT}>Account</Link></li>
+    <li><SignOutButton/></li>
+  </ul>
+
+/* Navigation to show if user is not logged in. */
+const NavigationNonAuth = () =>
+  <ul>
+    <li><Link to={routes.LANDING}>Landing</Link></li>
+    <li><Link to={routes.SIGN_IN}>Sign In</Link></li>
+  </ul>
+  
 export default Navigation;
