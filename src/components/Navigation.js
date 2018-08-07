@@ -1,17 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import AuthUserContext from './AuthUserContext';
 import SignOutButton from './SignOut';
 import * as routes from '../constants/routes';
 
 /* Determine if user is logged in and assign navigation to show. */
-const Navigation = ({ authUser }) =>
-  <div>
-    { authUser
+const Navigation = () =>
+  /* Using 'Render Props' pattern to gain access to the value which
+  was passed before to the Provider pattern. */
+  <AuthUserContext.Consumer>
+    { authUser => authUser
       ? <NavigationAuth/>
       : <NavigationNonAuth/>
     }
-  </div>
+  </AuthUserContext.Consumer>
 
 /* Navigation to show if user is logged in. */
 const NavigationAuth = () =>
@@ -28,5 +31,5 @@ const NavigationNonAuth = () =>
     <li><Link to={routes.LANDING}>Landing</Link></li>
     <li><Link to={routes.SIGN_IN}>Sign In</Link></li>
   </ul>
-  
+
 export default Navigation;
