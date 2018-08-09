@@ -4,7 +4,7 @@ import {
   withRouter,
 } from 'react-router-dom';
 
-import { auth } from '../firebase';
+import { auth, db } from '../firebase';
 import * as routes from '../constants/routes';
 
 /* Main sign up content display. */
@@ -57,12 +57,21 @@ class SignUpForm extends Component {
     /* Attempt to create new user in Firebase. */
     auth.doCreateUserWithEmailAndPassword(email, password)
       .then(authUser => {
-        this.setState({ ...INITAL_STATE });
-        history.push(routes.HOME);
-      })
-      .catch(error => {
-        this.setState(byPropKey('error', error));
-      });
+
+        /* Create new user in the realtime Firebase database. */
+        db.doCreateUser(authUser.user.uid, username, email)
+          .then(() => {
+            this.setState({ ...INITAL_STATE });
+            history.push(routes.HOME);
+          })
+          .catch(error => {
+            this.setState(byPropKey('error', error));
+          });
+
+        })
+        .catch(error => {
+          this.setState(byPropKey('error', error));
+        });
 
       /* Prevents reload of the browser. */
       event.preventDefault();
