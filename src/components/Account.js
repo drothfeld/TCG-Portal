@@ -3,6 +3,7 @@ import React from 'react';
 import AuthUserContext from './AuthUserContext';
 import { PasswordForgetForm } from './PasswordForget';
 import PasswordChangeForm from './PasswordChange';
+import { DeleteAccountButton } from './DeleteAccount';
 import withAuthorization from './withAuthorization';
 
 /* Page for user to manage their account.
@@ -14,6 +15,7 @@ const AccountPage = () =>
         <h1>Account: { authUser.email }</h1>
         <PasswordForgetForm />
         <PasswordChangeForm />
+        <DeleteAccountButton />
       </div>
     }
   </AuthUserContext.Consumer>

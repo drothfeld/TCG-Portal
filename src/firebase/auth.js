@@ -42,3 +42,8 @@ export const doPasswordReset = (email) =>
     update the password of a user. */
 export const doPasswordUpdate = (password) =>
   auth.currentUser.updatePassword(password);
+
+/* Delete User:
+    Deletes the currently logged in user from Firebase. */
+export const doDeleteUser = () =>
+  auth.currentUser.delete();
