@@ -112,7 +112,7 @@ class SignInForm extends Component {
 
         </div>
 
-        { error && <p> { error.message }</p> }
+        { error && <p className="error-text">{ error.message }</p> }
       </form>
     );
   }

@@ -46,6 +46,11 @@ span.psw {
   padding-top: 16px;
 }
 
+.error-text {
+  text-align: center;
+  color: red;
+}
+
 /* Change styles for span and cancel button on extra small screens */
 @media screen and (max-width: 414px) {
     span.psw {

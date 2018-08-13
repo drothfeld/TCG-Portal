@@ -6,11 +6,13 @@ import {
 
 import { auth, db } from '../firebase';
 import * as routes from '../constants/routes';
+import '../main.css';
+import './SignUp.css';
 
 /* Main sign up content display. */
 const SignUpPage = ({ history }) =>
   <div>
-    <h1>Sign Up Page</h1>
+    <h1 className="component-title-text">Create an Account</h1>
     <SignUpForm history = { history }/>
   </div>
 
@@ -126,7 +128,7 @@ class SignUpForm extends Component {
           Sign Up
         </button>
 
-        { error && <p>{error.message}</p> }
+        { error && <p className="error-text">{ error.message }</p> }
       </form>
     );
   }

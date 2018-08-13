@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 import { auth } from '../firebase';
+import '../main.css';
+import './PasswordForget.css';
 
 /* Main forgot password content display. */
 const PasswordForgetPage = () =>
   <div>
-    <h1>PasswordForget</h1>
+    <h1 className="component-title-text">Forgot Password</h1>
     <PasswordForgetForm />
   </div>
 
@@ -67,7 +69,7 @@ class PasswordForgetForm extends Component {
           Reset My Password
         </button>
 
-        { error && <p> { error.message } </p> }
+        { error && <p className="error-text"> { error.message } </p> }
       </form>
     );
   }
