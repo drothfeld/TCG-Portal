@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import AuthUserContext from './AuthUserContext';
 import SignOutButton from './SignOut';
 import * as routes from '../constants/routes';
+import '../main.css';
 
 /* Determine if user is logged in and assign navigation to show. */
 const Navigation = () =>
@@ -27,9 +28,7 @@ const NavigationAuth = () =>
 
 /* Navigation to show if user is not logged in. */
 const NavigationNonAuth = () =>
-  <ul>
-    <li><Link to={routes.LANDING}>Landing</Link></li>
-    <li><Link to={routes.SIGN_IN}>Sign In</Link></li>
-  </ul>
+  <div className="banner-container">
+  </div>
 
 export default Navigation;

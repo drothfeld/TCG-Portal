@@ -5,14 +5,17 @@ import { SignUpLink } from './SignUp';
 import { PasswordForgetLink } from './PasswordForget';
 import { auth } from '../firebase';
 import * as routes from '../constants/routes';
+import '../main.css';
+import './SignIn.css';
 
 /* Main sign in content display. */
 const SignInPage = ({ history }) =>
   <div>
-    <h1>Sign In Page</h1>
     <SignInForm history = { history }/>
-    <PasswordForgetLink/>
-    <SignUpLink/>
+    <div className="container">
+      <PasswordForgetLink/>
+      <SignUpLink/>
+    </div>
   </div>
 
 /* Initialize state of form component. */
@@ -80,21 +83,34 @@ class SignInForm extends Component {
        and updates the value in local state with OnChange handler. */
     return (
       <form onSubmit = { this.onSubmit }>
-        <input
-          value = { email }
-          onChange = { event => this.setState(byPropKey('email', event.target.value))}
-          type = "text"
-          placeholder = "Email Address"
-        />
-        <input
-          value = { password }
-          onChange = { event => this.setState(byPropKey('password', event.target.value))}
-          type = "password"
-          placeholder = "Password"
-        />
-        <button disabled = { isInvalid } type = "submit">
-          Sign In
-        </button>
+
+        <div className="image-container">
+          <img src={window.location.origin + '/assets/images/placeholder_login_logo.png'} alt="Avatar" className="avatar"></img>
+        </div>
+
+        <div className="container">
+
+          <label><b>Email</b></label>
+          <input
+            value = { email }
+            onChange = { event => this.setState(byPropKey('email', event.target.value))}
+            type = "text"
+            placeholder = "Enter Email Address"
+          />
+
+          <label><b>Password</b></label>
+          <input
+            value = { password }
+            onChange = { event => this.setState(byPropKey('password', event.target.value))}
+            type = "password"
+            placeholder = "Enter Password"
+          />
+
+          <button disabled = { isInvalid } type = "submit">
+            Login
+          </button>
+
+        </div>
 
         { error && <p> { error.message }</p> }
       </form>
