@@ -5,6 +5,7 @@ import AuthUserContext from './AuthUserContext';
 import SignOutButton from './SignOut';
 import * as routes from '../constants/routes';
 import '../main.css';
+import './Navigation.css';
 
 /* Determine if user is logged in and assign navigation to show. */
 const Navigation = () =>
@@ -20,10 +21,9 @@ const Navigation = () =>
 /* Navigation to show if user is logged in. */
 const NavigationAuth = () =>
   <ul>
-    <li><Link to={routes.LANDING}>Landing</Link></li>
-    <li><Link to={routes.HOME}>Home</Link></li>
-    <li><Link to={routes.ACCOUNT}>Account</Link></li>
-    <li><SignOutButton/></li>
+    <li><Link style={{ textDecoration: 'none', color: 'white', padding: 15, fontSize: 15 }} to={routes.HOME}>Home</Link></li>
+    <li><Link style={{ textDecoration: 'none', color: 'white', padding: 15, fontSize: 15 }} to={routes.ACCOUNT}>Account</Link></li>
+    <li style={{ float: 'right' }}><SignOutButton/></li>
   </ul>
 
 /* Navigation to show if user is not logged in. */
