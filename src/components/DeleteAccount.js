@@ -26,7 +26,7 @@ class DeleteAccountButton extends Component {
     return (
       <AuthUserContext.Consumer>
       { authUser =>
-        <button id = { authUser.uid } onClick = { this.onDelete }>
+        <button style={{ backgroundColor: 'red' }} id = { authUser.uid } onClick = { this.onDelete }>
           Delete Account
         </button>
       }

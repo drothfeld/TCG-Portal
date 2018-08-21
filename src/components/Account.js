@@ -6,16 +6,19 @@ import PasswordChangeForm from './PasswordChange';
 import { DeleteAccountButton } from './DeleteAccount';
 import withAuthorization from './withAuthorization';
 
+import '../main.css';
+import './Account.css';
+
 /* Page for user to manage their account.
 Wrapped in higher order component wtih defined authorization for this component. */
 const AccountPage = () =>
   <AuthUserContext.Consumer>
     { authUser =>
       <div>
-        <h1>Account: { authUser.email }</h1>
+        <h1><div className="account-title-text">{ authUser.email }</div></h1>
         <PasswordForgetForm />
         <PasswordChangeForm />
-        <DeleteAccountButton />
+        <div className="delete-account-button"><DeleteAccountButton /></div>
       </div>
     }
   </AuthUserContext.Consumer>
