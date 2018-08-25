@@ -3,21 +3,53 @@ import {
   withRouter,
 } from 'react-router-dom';
 
-import { auth } from '../firebase';
-import * as routes from '../constants/routes';
 import * as cardGames from '../constants/cardGames';
 import * as games from '../constants/cardGameList';
+import withAuthorization from './withAuthorization';
+import { db } from '../firebase';
 import '../main.css';
 import './AddCardGame.css';
 
 /* Main add card game content display. */
-const AddCardGamePage = ({ history }) =>
-  <div>
-    <AddCardGameForm history = { history }/>
-  </div>
+class AddCardGamePage extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      users: null,
+      cardGame: '',
+      playerOne: '',
+      playerTwo: '',
+      playerThree: '',
+      playerFour: '',
+      winningPlayer: '',
+      winningDeckOrCharacterName: '',
+      winningColor: '',
+      losingPlayers: '',
+      losingDecksOrCharacterNames: '',
+      losingColors: '',
+      battleRoyal: false,
+      error: null,
+    };
+  }
+
+  componentDidMount() {
+    db.onceGetUsers().then(snapshot =>
+      this.setState({ users: snapshot.val() })
+    );
+  }
+  render() {
+    return (
+      <div>
+        <AddCardGameForm/>
+      </div>
+    )
+  }
+}
 
 /* Initialize state of form component. */
 const INITIAL_STATE = {
+  users: null,
   cardGame: '',
   playerOne: '',
   playerTwo: '',
@@ -49,9 +81,16 @@ class AddCardGameForm extends Component {
     this.state = { ...INITIAL_STATE };
   }
 
+  componentDidMount() {
+    db.onceGetUsers().then(snapshot =>
+      this.setState({ users: snapshot.val() })
+    );
+  }
+
   onSubmit = (event) => {
     /* Values to pass to firebase API. */
     const {
+      users,
       cardGame,
       playerOne,
       playerTwo,
@@ -66,11 +105,7 @@ class AddCardGameForm extends Component {
       battleRoyal,
     } = this.state;
 
-    const {
-      history,
-    } = this.props;
-
-    console.log(this.state.cardGame);
+    console.log(this.state);
 
     /* Prevents reload of the browser. */
     event.preventDefault();
@@ -79,6 +114,7 @@ class AddCardGameForm extends Component {
   render() {
     /* Values to capture state. */
     const {
+      users,
       cardGame,
       playerOne,
       playerTwo,
@@ -113,17 +149,25 @@ class AddCardGameForm extends Component {
 
         <div className="container">
 
-          <div className="select-game-container">
+          <div className="select-container">
             <label><b>Card Game</b></label>
             <select className="dropdown-select" defaultValue={-1} onChange = { event => this.setState(byPropKey('cardGame', event.target.value)) }>
               <option value='-1' disabled>Choose a Card Game</option>
               { Object.keys(cardGames).map((name,index) => <option key={index} value={games.GAMES[index]}>{games.GAMES[index]}</option>) }
             </select>
-
-            <button type = "submit">
-              Submit Card Game
-            </button>
           </div>
+
+          <div className="select-container">
+            <label><b>Player One</b></label>
+            <select className="dropdown-select" defaultValue={-1} onChange = { event => this.setState(byPropKey('playerOne', event.target.value)) }>
+              <option value='-1' disabled>Select Player One</option>
+              { Object.keys(cardGames).map((name,index) => <option key={index} value={games.GAMES[index]}>{games.GAMES[index]}</option>) }
+            </select>
+          </div>
+
+          <button type = "submit">
+            Submit Card Game
+          </button>
 
         </div>
 
@@ -133,10 +177,18 @@ class AddCardGameForm extends Component {
   }
 }
 
-/* Passing component to withRouter allows
-   us to redirect the user. */
-export default withRouter(AddCardGamePage);
+/* Since returned users are objects, not a list, the users
+   must be mapped over the keys in order to display them. */
+const UserList = ({ users }) =>
+  <div>
+    <h2>List of Usernames of Users</h2>
+    <p>(Saved on Sign Up in Firebase Database)</p>
 
-export {
-  AddCardGameForm,
-};
+    { Object.keys(users).map(key =>
+      <div key = { key }>{ users[key].username }</div>
+    )}
+  </div>
+
+const authCondition = (authUser) => !!authUser;
+
+export default withAuthorization(authCondition)(AddCardGamePage);
