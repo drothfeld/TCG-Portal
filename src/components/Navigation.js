@@ -21,9 +21,9 @@ const Navigation = () =>
 /* Navigation to show if user is logged in. */
 const NavigationAuth = () =>
   <ul>
-    <li><Link style={{ textDecoration: 'none', color: 'white', padding: 15, fontSize: 15 }} to={routes.HOME}>Home</Link></li>
-    <li><Link style={{ textDecoration: 'none', color: 'white', padding: 15, fontSize: 15 }} to={routes.ACCOUNT}>Account</Link></li>
-    <li><Link style={{ textDecoration: 'none', color: 'white', padding: 15, fontSize: 15 }} to={routes.ADD_CARD_GAME}>Add Card Game</Link></li>
+    <li><Link style={{ textDecoration: 'none', color: 'white', padding: 10, fontSize: 15 }} to={routes.HOME}>Home</Link></li>
+    <li><Link style={{ textDecoration: 'none', color: 'white', padding: 10, fontSize: 15 }} to={routes.ACCOUNT}>Account</Link></li>
+    <li><Link style={{ textDecoration: 'none', color: 'white', padding: 10, fontSize: 15 }} to={routes.ADD_CARD_GAME}>Add</Link></li>
     <li style={{ float: 'right' }}><SignOutButton/></li>
   </ul>
 

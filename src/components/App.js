@@ -12,6 +12,7 @@ import PasswordForgetPage from './PasswordForget';
 import HomePage from './Home';
 import AccountPage from './Account';
 import AdminPage from './Admin';
+import AddCardGamePage from './AddCardGame';
 
 import * as routes from '../constants/routes';
 
@@ -28,6 +29,7 @@ const App = () =>
       <Route exact path={routes.HOME} component={() => <HomePage />} />
       <Route exact path={routes.ACCOUNT} component={() => <AccountPage />} />
       <Route exact path={routes.ADMIN} component={() => <AdminPage />} />
+      <Route exact path={routes.ADD_CARD_GAME} component={() => <AddCardGamePage />} />
     </div>
   </Router>
 
