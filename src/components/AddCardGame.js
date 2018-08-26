@@ -6,7 +6,6 @@ import {
 import * as cardGames from '../constants/cardGames';
 import * as games from '../constants/cardGameList';
 import withAuthorization from './withAuthorization';
-import { db } from '../firebase';
 import '../main.css';
 import './AddCardGame.css';
 
@@ -16,7 +15,6 @@ class AddCardGamePage extends Component {
     super(props);
 
     this.state = {
-      users: null,
       cardGame: '',
       playerOne: '',
       playerTwo: '',
@@ -28,16 +26,11 @@ class AddCardGamePage extends Component {
       losingPlayers: '',
       losingDecksOrCharacterNames: '',
       losingColors: '',
-      battleRoyal: false,
+      battleRoyale: false,
       error: null,
     };
   }
 
-  componentDidMount() {
-    db.onceGetUsers().then(snapshot =>
-      this.setState({ users: snapshot.val() })
-    );
-  }
   render() {
     return (
       <div>
@@ -49,7 +42,6 @@ class AddCardGamePage extends Component {
 
 /* Initialize state of form component. */
 const INITIAL_STATE = {
-  users: null,
   cardGame: '',
   playerOne: '',
   playerTwo: '',
@@ -61,7 +53,7 @@ const INITIAL_STATE = {
   losingPlayers: '',
   losingDecksOrCharacterNames: '',
   losingColors: '',
-  battleRoyal: false,
+  battleRoyale: false,
   error: null,
 };
 
@@ -81,16 +73,9 @@ class AddCardGameForm extends Component {
     this.state = { ...INITIAL_STATE };
   }
 
-  componentDidMount() {
-    db.onceGetUsers().then(snapshot =>
-      this.setState({ users: snapshot.val() })
-    );
-  }
-
   onSubmit = (event) => {
     /* Values to pass to firebase API. */
     const {
-      users,
       cardGame,
       playerOne,
       playerTwo,
@@ -102,7 +87,7 @@ class AddCardGameForm extends Component {
       losingPlayers,
       losingDecksOrCharacterNames,
       losingColors,
-      battleRoyal,
+      battleRoyale,
     } = this.state;
 
     console.log(this.state);
@@ -111,10 +96,24 @@ class AddCardGameForm extends Component {
     event.preventDefault();
   }
 
+  checkBattleRoyale = (event) => {
+    var p3 = document.getElementById("player-3");
+    var p4 = document.getElementById("player-4");
+
+    if (this.state.battleRoyale === true) {
+      this.setState(byPropKey('battleRoyale', false));
+      p3.style.display = "none";
+      p4.style.display = "none";
+    } else {
+      this.setState(byPropKey('battleRoyale', true));
+      p3.style.display = "inline";
+      p4.style.display = "inline";
+    }
+  }
+
   render() {
     /* Values to capture state. */
     const {
-      users,
       cardGame,
       playerOne,
       playerTwo,
@@ -126,7 +125,7 @@ class AddCardGameForm extends Component {
       losingPlayers,
       losingDecksOrCharacterNames,
       losingColors,
-      battleRoyal,
+      battleRoyale,
       error,
     } = this.state;
 
@@ -151,18 +150,55 @@ class AddCardGameForm extends Component {
 
           <div className="select-container">
             <label><b>Card Game</b></label>
-            <select className="dropdown-select" defaultValue={-1} onChange = { event => this.setState(byPropKey('cardGame', event.target.value)) }>
+            <select className="addgame-select" defaultValue={-1} onChange = { event => this.setState(byPropKey('cardGame', event.target.value)) }>
               <option value='-1' disabled>Choose a Card Game</option>
               { Object.keys(cardGames).map((name,index) => <option key={index} value={games.GAMES[index]}>{games.GAMES[index]}</option>) }
             </select>
           </div>
 
-          <div className="select-container">
-            <label><b>Player One</b></label>
-            <select className="dropdown-select" defaultValue={-1} onChange = { event => this.setState(byPropKey('playerOne', event.target.value)) }>
-              <option value='-1' disabled>Select Player One</option>
-              { Object.keys(cardGames).map((name,index) => <option key={index} value={games.GAMES[index]}>{games.GAMES[index]}</option>) }
-            </select>
+          <label className="addgame-checkbox-container">Battle Royale
+            <input
+              value = { battleRoyale }
+              type= "checkbox"
+              onClick = { this.checkBattleRoyale }
+            />
+            <span className="addgame-checkmark"></span>
+          </label>
+
+          <label><b>Player One</b></label>
+          <input className="addgame-input" style={{ backgroundColor: '#ffc5bf'}}
+            value = { playerOne }
+            onChange = { event => this.setState(byPropKey('playerOne', event.target.value))}
+            type = "text"
+            placeholder = "Enter Full Name"
+          />
+
+          <label><b>Player Two</b></label>
+          <input className="addgame-input" style={{ backgroundColor: '#b8d1f9'}}
+            value = { playerTwo }
+            onChange = { event => this.setState(byPropKey('playerTwo', event.target.value))}
+            type = "text"
+            placeholder = "Enter Full Name"
+          />
+
+          <div id="player-3" className="optional-player">
+            <label hidden = { !this.state.battleRoyale }><b>Player Three</b></label>
+            <input className="addgame-input" style={{ backgroundColor: '#9bffa8'}}
+              value = { playerThree }
+              onChange = { event => this.setState(byPropKey('playerThree', event.target.value))}
+              type = "text"
+              placeholder = "Enter Full Name"
+            />
+          </div>
+
+          <div id="player-4" className="optional-player">
+            <label hidden = { !this.state.battleRoyale }><b>Player Four</b></label>
+            <input className="addgame-input" style={{ backgroundColor: '#f9fcab'}}
+              value = { playerFour }
+              onChange = { event => this.setState(byPropKey('playerFour', event.target.value))}
+              type = "text"
+              placeholder = "Enter Full Name"
+            />
           </div>
 
           <button type = "submit">
@@ -176,18 +212,6 @@ class AddCardGameForm extends Component {
     );
   }
 }
-
-/* Since returned users are objects, not a list, the users
-   must be mapped over the keys in order to display them. */
-const UserList = ({ users }) =>
-  <div>
-    <h2>List of Usernames of Users</h2>
-    <p>(Saved on Sign Up in Firebase Database)</p>
-
-    { Object.keys(users).map(key =>
-      <div key = { key }>{ users[key].username }</div>
-    )}
-  </div>
 
 const authCondition = (authUser) => !!authUser;
 
