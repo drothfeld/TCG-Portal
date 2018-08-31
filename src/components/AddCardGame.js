@@ -4,7 +4,7 @@ import {
 } from 'react-router-dom';
 
 import * as cardGames from '../constants/cardGames';
-import * as games from '../constants/cardGameList';
+import * as feCipherColors from '../constants/feCipherDeckColors';
 import withAuthorization from './withAuthorization';
 import '../main.css';
 import './AddCardGame.css';
@@ -154,7 +154,7 @@ class AddCardGameForm extends Component {
             <label><b>Card Game</b></label>
             <select className="addgame-select" defaultValue={-1} onChange = { event => this.setState(byPropKey('cardGame', event.target.value)) }>
               <option value='-1' disabled>Choose a Card Game</option>
-              { Object.keys(cardGames).map((name,index) => <option key={index} value={games.GAMES[index]}>{games.GAMES[index]}</option>) }
+              { Object.keys(cardGames.CARD_GAMES).map((name,index) => <option key={index} value={cardGames.CARD_GAMES[index]}>{cardGames.CARD_GAMES[index]}</option>) }
             </select>
           </div>
 
@@ -207,10 +207,10 @@ class AddCardGameForm extends Component {
             <label><b>Winning Player</b></label>
             <select className="addgame-select" defaultValue={-1} onChange = { event => this.setState(byPropKey('winningPlayer', event.target.value)) }>
               <option value='-1' disabled>Select the Winner</option>
-              <option value= { playerOne }>{ playerOne }</option>
-              <option value= { playerTwo }>{ playerTwo }</option>
-              <option hidden = { !this.state.battleRoyale } value= { playerThree }>{ playerThree }</option>
-              <option hidden = { !this.state.battleRoyale } value= { playerFour }>{ playerFour }</option>
+              <option hidden = { this.state.playerOne === ""  } value= { playerOne }>{ playerOne }</option>
+              <option hidden = { this.state.playerTwo === ""  } value= { playerTwo }>{ playerTwo }</option>
+              <option hidden = { !this.state.battleRoyale || this.state.playerThree === ""  } value= { playerThree }>{ playerThree }</option>
+              <option hidden = { !this.state.battleRoyale || this.state.playerFour === "" } value= { playerFour }>{ playerFour }</option>
             </select>
           </div>
 
@@ -221,6 +221,14 @@ class AddCardGameForm extends Component {
             type = "text"
             placeholder = "Enter Deck Name"
           />
+
+          <div hidden = { this.state.cardGame !== cardGames.FE_CIPHER } className="select-container">
+            <label><b>Winning Deck Color</b></label>
+            <select className="addgame-select" defaultValue={-1} onChange = { event => this.setState(byPropKey('winningColor', event.target.value)) }>
+              <option value='-1' disabled>Choose a Fire Emblem Cipher Color</option>
+              { Object.keys(feCipherColors.CIPHER_COLORS).map((name,index) => <option key={index} value={feCipherColors.CIPHER_COLORS[index]}>{feCipherColors.CIPHER_COLORS[index]}</option>) }
+            </select>
+          </div>
 
           <button type = "submit">
             Submit Card Game
