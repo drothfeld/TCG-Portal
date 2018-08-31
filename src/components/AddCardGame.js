@@ -214,6 +214,14 @@ class AddCardGameForm extends Component {
             </select>
           </div>
 
+          <label><b>Winning Deck Name</b></label>
+          <input className="addgame-input" style={{ backgroundColor: '#ccc'}}
+            value = { winningDeckOrCharacterName }
+            onChange = { event => this.setState(byPropKey('winningDeckOrCharacterName', event.target.value))}
+            type = "text"
+            placeholder = "Enter Deck Name"
+          />
+
           <button type = "submit">
             Submit Card Game
           </button>
