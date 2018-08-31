@@ -102,6 +102,8 @@ class AddCardGameForm extends Component {
 
     if (this.state.battleRoyale === true) {
       this.setState(byPropKey('battleRoyale', false));
+      this.setState(byPropKey('playerThree', ""));
+      this.setState(byPropKey('playerFour', ""));
       p3.style.display = "none";
       p4.style.display = "none";
     } else {
@@ -199,6 +201,17 @@ class AddCardGameForm extends Component {
               type = "text"
               placeholder = "Enter Full Name"
             />
+          </div>
+
+          <div className="select-container">
+            <label><b>Winning Player</b></label>
+            <select className="addgame-select" defaultValue={-1} onChange = { event => this.setState(byPropKey('winningPlayer', event.target.value)) }>
+              <option value='-1' disabled>Select the Winner</option>
+              <option value= { playerOne }>{ playerOne }</option>
+              <option value= { playerTwo }>{ playerTwo }</option>
+              <option hidden = { !this.state.battleRoyale } value= { playerThree }>{ playerThree }</option>
+              <option hidden = { !this.state.battleRoyale } value= { playerFour }>{ playerFour }</option>
+            </select>
           </div>
 
           <button type = "submit">
