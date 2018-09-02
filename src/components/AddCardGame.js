@@ -230,6 +230,27 @@ class AddCardGameForm extends Component {
             </select>
           </div>
 
+          <div hidden = { this.state.battleRoyale } className="select-container">
+            <label><b>Losing Player</b></label>
+            <select className="addgame-select" defaultValue={-1} onChange = { event => this.setState(byPropKey('losingPlayers', event.target.value)) }>
+              <option value='-1' disabled>Select the Loser</option>
+              <option hidden = { this.state.playerOne === "" || this.state.winningPlayer === playerOne } value= { playerOne }>{ playerOne }</option>
+              <option hidden = { this.state.playerTwo === "" || this.state.winningPlayer === playerTwo } value= { playerTwo }>{ playerTwo }</option>
+              <option hidden = { !this.state.battleRoyale || this.state.playerThree === "" || this.state.winningPlayer === playerThree } value= { playerThree }>{ playerThree }</option>
+              <option hidden = { !this.state.battleRoyale || this.state.playerFour === "" || this.state.winningPlayer === playerFour } value= { playerFour }>{ playerFour }</option>
+            </select>
+          </div>
+
+          <div hidden = { !this.state.battleRoyale } className="select-container">
+            <label><b>Losing Players</b></label>
+            <input className="addgame-input" style={{ backgroundColor: '#ccc'}}
+              value = { losingPlayers }
+              onChange = { event => this.setState(byPropKey('losingPlayers', event.target.value))}
+              type = "text"
+              placeholder = "Enter Full Names Seperated By a Comma"
+            />
+          </div>
+
           <button type = "submit">
             Submit Card Game
           </button>
