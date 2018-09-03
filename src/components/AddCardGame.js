@@ -260,6 +260,24 @@ class AddCardGameForm extends Component {
             placeholder = "Enter Deck Names Seperated By a Comma"
           />
 
+          <div hidden = { this.state.battleRoyale || this.state.cardGame !== cardGames.FE_CIPHER } className="select-container">
+            <label><b>Losing Deck Color</b></label>
+            <select className="addgame-select" defaultValue={-1} onChange = { event => this.setState(byPropKey('losingColors', event.target.value)) }>
+              <option value='-1' disabled>Choose a Fire Emblem Cipher Color</option>
+              { Object.keys(feCipherColors.CIPHER_COLORS).map((name,index) => <option key={index} value={feCipherColors.CIPHER_COLORS[index]}>{feCipherColors.CIPHER_COLORS[index]}</option>) }
+            </select>
+          </div>
+
+          <div hidden = { !this.state.battleRoyale || this.state.cardGame !== cardGames.FE_CIPHER }>
+            <label><b>Losing Deck Colors</b></label>
+            <input className="addgame-input" style={{ backgroundColor: '#ccc'}}
+              value = { losingColors }
+              onChange = { event => this.setState(byPropKey('losingColors', event.target.value))}
+              type = "text"
+              placeholder = "Enter Deck Colors Seperated By a Comma"
+            />
+          </div>
+
           <button type = "submit">
             Submit Card Game
           </button>
