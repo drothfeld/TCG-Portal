@@ -251,6 +251,15 @@ class AddCardGameForm extends Component {
             />
           </div>
 
+          <label hidden = { this.state.battleRoyale }><b>Losing Deck Name</b></label>
+          <label hidden = { !this.state.battleRoyale }><b>Losing Deck Names</b></label>
+          <input className="addgame-input" style={{ backgroundColor: '#ccc'}}
+            value = { losingDecksOrCharacterNames }
+            onChange = { event => this.setState(byPropKey('losingDecksOrCharacterNames', event.target.value))}
+            type = "text"
+            placeholder = "Enter Deck Names Seperated By a Comma"
+          />
+
           <button type = "submit">
             Submit Card Game
           </button>
