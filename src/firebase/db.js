@@ -15,6 +15,8 @@ export const doCreateUser = (id, username, email) =>
 export const doDeleteUser = (id) =>
   db.ref(`users/${id}`).remove()
 
+// Creates a recorded-game object stored at: recorded-object/$
+
 // Retrieves all users from Firebase realtime db.
 export const onceGetUsers = () =>
   db.ref('users').once('value');

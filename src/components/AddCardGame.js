@@ -16,6 +16,7 @@ class AddCardGamePage extends Component {
 
     this.state = {
       cardGame: '',
+      date: '',
       playerOne: '',
       playerTwo: '',
       playerThree: '',
@@ -43,6 +44,7 @@ class AddCardGamePage extends Component {
 /* Initialize state of form component. */
 const INITIAL_STATE = {
   cardGame: '',
+  date: '',
   playerOne: '',
   playerTwo: '',
   playerThree: '',
@@ -77,6 +79,7 @@ class AddCardGameForm extends Component {
     /* Values to pass to firebase API. */
     const {
       cardGame,
+      date,
       playerOne,
       playerTwo,
       playerThree,
@@ -117,6 +120,7 @@ class AddCardGameForm extends Component {
     /* Values to capture state. */
     const {
       cardGame,
+      date,
       playerOne,
       playerTwo,
       playerThree,
@@ -166,6 +170,14 @@ class AddCardGameForm extends Component {
             />
             <span className="addgame-checkmark"></span>
           </label>
+
+          <label><b>Date of Game</b></label>
+          <input className="addgame-input" style={{ backgroundColor: '#ccc'}}
+            value = { date }
+            onChange = { event => this.setState(byPropKey('date', event.target.value))}
+            type = "text"
+            placeholder = "Format: MM/DD/YYYY"
+          />
 
           <label><b>Player One</b></label>
           <input className="addgame-input" style={{ backgroundColor: '#ffc5bf'}}
