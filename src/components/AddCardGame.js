@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import {
-  withRouter,
-} from 'react-router-dom';
 
+import { db } from '../firebase';
 import * as cardGames from '../constants/cardGames';
 import * as feCipherColors from '../constants/feCipherDeckColors';
 import withAuthorization from './withAuthorization';
@@ -13,23 +11,7 @@ import './AddCardGame.css';
 class AddCardGamePage extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      cardGame: '',
-      date: '',
-      playerOne: '',
-      playerTwo: '',
-      playerThree: '',
-      playerFour: '',
-      winningPlayer: '',
-      winningDeckOrCharacterName: '',
-      winningColor: '',
-      losingPlayers: '',
-      losingDecksOrCharacterNames: '',
-      losingColors: '',
-      battleRoyale: false,
-      error: null,
-    };
+    this.state = { ...INITIAL_STATE };
   }
 
   render() {
@@ -76,29 +58,25 @@ class AddCardGameForm extends Component {
   }
 
   onSubmit = (event) => {
-    /* Values to pass to firebase API. */
-    const {
-      cardGame,
-      date,
-      playerOne,
-      playerTwo,
-      playerThree,
-      playerFour,
-      winningPlayer,
-      winningDeckOrCharacterName,
-      winningColor,
-      losingPlayers,
-      losingDecksOrCharacterNames,
-      losingColors,
-      battleRoyale,
-    } = this.state;
-
-    console.log(this.state);
-
     /* Prevents reload of the browser. */
     event.preventDefault();
+
+    /* Values to pass to firebase API. */
+    const { cardGame, date, playerOne, playerTwo, playerThree, playerFour, winningPlayer, winningDeckOrCharacterName, winningColor, losingPlayers, losingDecksOrCharacterNames, losingColors, battleRoyale } = this.state;
+    const gameId = Number(date + String(Math.floor((Math.random() * 99999999) + 111)))
+
+    /* Create new recorded-game in the realtime Firebase database. */
+    db.doCreateRecordedGame(gameId, cardGame, date, playerOne, playerTwo, playerThree, playerFour, winningPlayer, winningDeckOrCharacterName, winningColor, losingPlayers, losingDecksOrCharacterNames, losingColors, battleRoyale,)
+      .then(() => {
+        this.setState({ ...INITIAL_STATE });
+      })
+      .catch(error => {
+        this.setState(byPropKey('error', error));
+      });
   }
 
+  /* Called when the battle royale box is toggled
+     in order to change the UI as needed. */
   checkBattleRoyale = (event) => {
     var p3 = document.getElementById("player-3");
     var p4 = document.getElementById("player-4");
@@ -118,22 +96,7 @@ class AddCardGameForm extends Component {
 
   render() {
     /* Values to capture state. */
-    const {
-      cardGame,
-      date,
-      playerOne,
-      playerTwo,
-      playerThree,
-      playerFour,
-      winningPlayer,
-      winningDeckOrCharacterName,
-      winningColor,
-      losingPlayers,
-      losingDecksOrCharacterNames,
-      losingColors,
-      battleRoyale,
-      error,
-    } = this.state;
+    const { cardGame, date, playerOne, playerTwo, playerThree, playerFour, winningPlayer, winningDeckOrCharacterName, winningColor, losingPlayers, losingDecksOrCharacterNames, losingColors, battleRoyale, error } = this.state;
 
     /* Defining validation for recording a card game. */
     const isInvalid =
@@ -176,7 +139,7 @@ class AddCardGameForm extends Component {
             value = { date }
             onChange = { event => this.setState(byPropKey('date', event.target.value))}
             type = "text"
-            placeholder = "Format: MM/DD/YYYY"
+            placeholder = "Format: MMDDYYYY"
           />
 
           <label><b>Player One</b></label>
@@ -290,7 +253,7 @@ class AddCardGameForm extends Component {
             />
           </div>
 
-          <button type = "submit">
+          <button /*disabled = { isInvalid }*/ type = "submit">
             Submit Card Game
           </button>
 

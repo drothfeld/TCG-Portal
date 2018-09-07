@@ -15,13 +15,24 @@ export const doCreateUser = (id, username, email) =>
 export const doDeleteUser = (id) =>
   db.ref(`users/${id}`).remove()
 
-// Creates a recorded-game object stored at: recorded-object/$
-
 // Retrieves all users from Firebase realtime db.
 export const onceGetUsers = () =>
   db.ref('users').once('value');
 
-//
-// TODO:
-// Other Entity APIs
-//
+// Creates a new recorded-game object in Firebase.
+export const doCreateRecordedGame = (id, cardGame, date, playerOne, playerTwo, playerThree, playerFour, winningPlayer, winningDeckOrCharacterName, winningColor, losingPlayers, losingDecksOrCharacterNames, losingColors, battleRoyale,) =>
+  db.ref(`recorded-games/${id}`).set({
+    cardGame,
+    date,
+    playerOne,
+    playerTwo,
+    playerThree,
+    playerFour,
+    winningPlayer,
+    winningDeckOrCharacterName,
+    winningColor,
+    losingPlayers,
+    losingDecksOrCharacterNames,
+    losingColors,
+    battleRoyale,
+  });
