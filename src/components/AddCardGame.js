@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 
 import { db } from '../firebase';
 import * as cardGames from '../constants/cardGames';
 import * as feCipherColors from '../constants/feCipherDeckColors';
+import * as routes from '../constants/routes';
 import withAuthorization from './withAuthorization';
 import '../main.css';
 import './AddCardGame.css';
@@ -11,17 +13,22 @@ import './AddCardGame.css';
 class AddCardGamePage extends Component {
   constructor(props) {
     super(props);
+
     this.state = { ...INITIAL_STATE };
   }
 
   render() {
     return (
-      <div>
-        <AddCardGameForm/>
-      </div>
+      <AddCardGameFormWrapper/>
     )
   }
 }
+
+/* Main sign up content display. */
+const AddCardGameFormWrapper = ({ history }) =>
+  <div>
+    <AddCardGameForm history = { history }/>
+  </div>
 
 /* Initialize state of form component. */
 const INITIAL_STATE = {
@@ -66,27 +73,31 @@ const byPropKey = (propertyName, value) => () => ({
 class AddCardGameForm extends Component {
   constructor(props) {
     super(props);
-
+    
     /* Setting field values to INITAL_STATE values. */
     this.state = { ...INITIAL_STATE };
   }
 
   onSubmit = (event) => {
-    /* Prevents reload of the browser. */
-    event.preventDefault();
-
     /* Values to pass to firebase API. */
     const { cardGame, date, playerOne, playerTwo, playerThree, playerFour, winningPlayer, winningDeckOrCharacterName, winningColor, losingPlayers, losingDecksOrCharacterNames, losingColors, battleRoyale } = this.state;
     const gameId = Number(date + String(Math.floor((Math.random() * 99999999) + 111)))
+
+    /* Used to redirect user on form submission. */
+    const { history } = this.props;
 
     /* Create new recorded-game in the realtime Firebase database. */
     db.doCreateRecordedGame(gameId, cardGame, date, playerOne, playerTwo, playerThree, playerFour, winningPlayer, winningDeckOrCharacterName, winningColor, losingPlayers, losingDecksOrCharacterNames, losingColors, battleRoyale,)
       .then(() => {
         this.setState({ ...INITIAL_STATE });
+        history.push(routes.HOME);
       })
       .catch(error => {
         this.setState(byPropKey('error', error));
       });
+
+      /* Prevents reload of the browser. */
+      event.preventDefault();
   }
 
   /* Handler for inital field validation when onBlur occurs */
@@ -329,4 +340,4 @@ class AddCardGameForm extends Component {
 
 const authCondition = (authUser) => !!authUser;
 
-export default withAuthorization(authCondition)(AddCardGamePage);
+export default withAuthorization(authCondition)(withRouter(AddCardGameForm, AddCardGamePage));
