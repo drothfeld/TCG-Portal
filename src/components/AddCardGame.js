@@ -39,6 +39,20 @@ const INITIAL_STATE = {
   losingColors: '',
   battleRoyale: false,
   error: null,
+  touched: {
+    cardGame: false,
+    date: false,
+    playerOne: false,
+    playerTwo: false,
+    playerThree: false,
+    playerFour: false,
+    winningPlayer: false,
+    winningDeckOrCharacterName: false,
+    winningColor: false,
+    losingPlayers: false,
+    losingDecksOrCharacterNames: false,
+    losingColors: false,
+  },
 };
 
 /* The key value is used as a dynamic key
@@ -73,6 +87,13 @@ class AddCardGameForm extends Component {
       .catch(error => {
         this.setState(byPropKey('error', error));
       });
+  }
+
+  /* Handler for inital field validation when onBlur occurs */
+  handleBlur = (field) => (event) => {
+    this.setState({
+      touched: { ...this.state.touched, [field]: true },
+    });
   }
 
   /* Validation function used to create custom
@@ -121,7 +142,13 @@ class AddCardGameForm extends Component {
 
     /* Defining validation for recording a card game. */
     const isInvalid = Object.keys(errors).some(x => errors[x]);
-    console.log(errors);
+
+    /* Check if should field should have error class. */
+    const shouldMarkError = (field) => {
+      const hasError = errors[field];
+      const shouldShow = this.state.touched[field];
+      return hasError ? shouldShow : false;
+    };
 
     /* Each input field gets a value from local state
        and updates the value in local state with OnChange handler. */
@@ -132,8 +159,8 @@ class AddCardGameForm extends Component {
 
           <div className="select-container">
             <label><b>Card Game</b></label>
-            <select className={["addgame-select", ...Array.from(errors.cardGame && ["error"])
-                ].join(" ")} defaultValue={-1} onChange = { event => this.setState(byPropKey('cardGame', event.target.value)) }>
+            <select className={["addgame-select", ...Array.from(shouldMarkError('cardGame') && ["error"])
+          ].join(" ")} defaultValue={-1} onChange = { event => this.setState(byPropKey('cardGame', event.target.value)) } onBlur = { this.handleBlur('cardGame') }>
               <option value='-1' disabled>Choose a Card Game</option>
               { Object.keys(cardGames.CARD_GAMES).map((name,index) => <option key={index} value={cardGames.CARD_GAMES[index]}>{cardGames.CARD_GAMES[index]}</option>) }
             </select>
@@ -149,28 +176,31 @@ class AddCardGameForm extends Component {
           </label>
 
           <label><b>Date of Game</b></label>
-          <input className={["addgame-input", ...Array.from(errors.date && ["error"])
+          <input className={["addgame-input", ...Array.from(shouldMarkError('date') && ["error"])
               ].join(" ")} style={{ backgroundColor: '#ccc'}}
             value = { date }
             onChange = { event => this.setState(byPropKey('date', event.target.value))}
+            onBlur = { this.handleBlur('date') }
             type = "text"
             placeholder = "Format: MMDDYYYY"
           />
 
           <label><b>Player One</b></label>
-          <input className={["addgame-input", ...Array.from(errors.playerOne && ["error"])
+          <input className={["addgame-input", ...Array.from(shouldMarkError('playerOne') && ["error"])
               ].join(" ")} style={{ backgroundColor: '#ffc5bf'}}
             value = { playerOne }
             onChange = { event => this.setState(byPropKey('playerOne', event.target.value))}
+            onBlur = { this.handleBlur('playerOne') }
             type = "text"
             placeholder = "Enter Full Name"
           />
 
           <label><b>Player Two</b></label>
-          <input className={["addgame-input", ...Array.from(errors.playerTwo && ["error"])
+          <input className={["addgame-input", ...Array.from(shouldMarkError('playerTwo') && ["error"])
               ].join(" ")} style={{ backgroundColor: '#b8d1f9'}}
             value = { playerTwo }
             onChange = { event => this.setState(byPropKey('playerTwo', event.target.value))}
+            onBlur = { this.handleBlur('playerTwo') }
             type = "text"
             placeholder = "Enter Full Name"
           />
@@ -197,8 +227,8 @@ class AddCardGameForm extends Component {
 
           <div className="select-container">
             <label><b>Winning Player</b></label>
-            <select className={["addgame-select", ...Array.from(errors.cardGame && ["error"])
-                ].join(" ")} defaultValue={-1} onChange = { event => this.setState(byPropKey('winningPlayer', event.target.value)) }>
+            <select className={["addgame-select", ...Array.from(shouldMarkError('winningPlayer') && ["error"])
+          ].join(" ")} defaultValue={-1} onChange = { event => this.setState(byPropKey('winningPlayer', event.target.value)) } onBlur = { this.handleBlur('winningPlayer') }>
               <option value='-1' disabled>Select the Winner</option>
               <option hidden = { this.state.playerOne === ""  } value= { playerOne }>{ playerOne }</option>
               <option hidden = { this.state.playerTwo === ""  } value= { playerTwo }>{ playerTwo }</option>
@@ -208,18 +238,19 @@ class AddCardGameForm extends Component {
           </div>
 
           <label><b>Winning Deck Name</b></label>
-          <input className={["addgame-input", ...Array.from(errors.winningDeckOrCharacterName && ["error"])
+          <input className={["addgame-input", ...Array.from(shouldMarkError('winningDeckOrCharacterName') && ["error"])
               ].join(" ")} style={{ backgroundColor: '#ccc'}}
             value = { winningDeckOrCharacterName }
             onChange = { event => this.setState(byPropKey('winningDeckOrCharacterName', event.target.value))}
+            onBlur = { this.handleBlur('winningDeckOrCharacterName') }
             type = "text"
             placeholder = "Enter Deck Name"
           />
 
           <div hidden = { this.state.cardGame !== cardGames.FE_CIPHER } className="select-container">
             <label><b>Winning Deck Color</b></label>
-            <select className={["addgame-select", ...Array.from(errors.winningColor && ["error"])
-                ].join(" ")} defaultValue={-1} onChange = { event => this.setState(byPropKey('winningColor', event.target.value)) }>
+            <select className={["addgame-select", ...Array.from(shouldMarkError('winningColor') && ["error"])
+          ].join(" ")} defaultValue={-1} onChange = { event => this.setState(byPropKey('winningColor', event.target.value)) } onBlur = { this.handleBlur('winningColor') }>
               <option value='-1' disabled>Choose a Fire Emblem Cipher Color</option>
               { Object.keys(feCipherColors.CIPHER_COLORS).map((name,index) => <option key={index} value={feCipherColors.CIPHER_COLORS[index]}>{feCipherColors.CIPHER_COLORS[index]}</option>) }
             </select>
@@ -227,8 +258,8 @@ class AddCardGameForm extends Component {
 
           <div hidden = { this.state.battleRoyale } className="select-container">
             <label><b>Losing Player</b></label>
-            <select className={["addgame-select", ...Array.from(errors.losingPlayers && ["error"])
-                ].join(" ")} defaultValue={-1} onChange = { event => this.setState(byPropKey('losingPlayers', event.target.value)) }>
+            <select className={["addgame-select", ...Array.from(shouldMarkError('losingPlayers') && ["error"])
+          ].join(" ")} defaultValue={-1} onChange = { event => this.setState(byPropKey('losingPlayers', event.target.value)) } onBlur = { this.handleBlur('losingPlayers') }>
               <option value='-1' disabled>Select the Loser</option>
               <option hidden = { this.state.playerOne === "" || this.state.winningPlayer === playerOne } value= { playerOne }>{ playerOne }</option>
               <option hidden = { this.state.playerTwo === "" || this.state.winningPlayer === playerTwo } value= { playerTwo }>{ playerTwo }</option>
@@ -239,10 +270,11 @@ class AddCardGameForm extends Component {
 
           <div hidden = { !this.state.battleRoyale } className="select-container">
             <label><b>Losing Players</b></label>
-            <input className={["addgame-input", ...Array.from(errors.losingPlayers && ["error"])
+            <input className={["addgame-input", ...Array.from(shouldMarkError('losingPlayers') && ["error"])
                 ].join(" ")} style={{ backgroundColor: '#ccc'}}
               value = { losingPlayers }
               onChange = { event => this.setState(byPropKey('losingPlayers', event.target.value))}
+              onBlur = { this.handleBlur('losingPlayers') }
               type = "text"
               placeholder = "Enter Full Names Seperated By a Comma"
             />
@@ -250,18 +282,19 @@ class AddCardGameForm extends Component {
 
           <label hidden = { this.state.battleRoyale }><b>Losing Deck Name</b></label>
           <label hidden = { !this.state.battleRoyale }><b>Losing Deck Names</b></label>
-          <input className={["addgame-input", ...Array.from(errors.losingDecksOrCharacterNames && ["error"])
+          <input className={["addgame-input", ...Array.from(shouldMarkError('losingDecksOrCharacterNames') && ["error"])
               ].join(" ")} style={{ backgroundColor: '#ccc'}}
             value = { losingDecksOrCharacterNames }
             onChange = { event => this.setState(byPropKey('losingDecksOrCharacterNames', event.target.value))}
+            onBlur = { this.handleBlur('losingDecksOrCharacterNames') }
             type = "text"
             placeholder = "Enter Deck Names Seperated By a Comma"
           />
 
           <div hidden = { this.state.battleRoyale || this.state.cardGame !== cardGames.FE_CIPHER } className="select-container">
             <label><b>Losing Deck Color</b></label>
-            <select className={["addgame-select", ...Array.from(errors.losingColors && ["error"])
-                ].join(" ")} defaultValue={-1} onChange = { event => this.setState(byPropKey('losingColors', event.target.value)) }>
+            <select className={["addgame-select", ...Array.from(shouldMarkError('losingColors') && ["error"])
+          ].join(" ")} defaultValue={-1} onChange = { event => this.setState(byPropKey('losingColors', event.target.value)) } onBlur = { this.handleBlur('losingColors') }>
               <option value='-1' disabled>Choose a Fire Emblem Cipher Color</option>
               { Object.keys(feCipherColors.CIPHER_COLORS).map((name,index) => <option key={index} value={feCipherColors.CIPHER_COLORS[index]}>{feCipherColors.CIPHER_COLORS[index]}</option>) }
             </select>
@@ -269,10 +302,11 @@ class AddCardGameForm extends Component {
 
           <div hidden = { !this.state.battleRoyale || this.state.cardGame !== cardGames.FE_CIPHER }>
             <label><b>Losing Deck Colors</b></label>
-            <input className={["addgame-input", ...Array.from(errors.losingColors && ["error"])
+            <input className={["addgame-input", ...Array.from(shouldMarkError('losingColors') && ["error"])
                 ].join(" ")} style={{ backgroundColor: '#ccc'}}
               value = { losingColors }
               onChange = { event => this.setState(byPropKey('losingColors', event.target.value))}
+              onBlur = { this.handleBlur('losingColors') }
               type = "text"
               placeholder = "Enter Deck Colors Seperated By a Comma"
             />
