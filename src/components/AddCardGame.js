@@ -315,6 +315,9 @@ class AddCardGameForm extends Component {
           <button disabled = { isInvalid } type = "submit">
             Submit Card Game
           </button>
+          <div className="default-validation-message" hidden = { !isInvalid }>
+            Fill out all form fields to submit
+          </div>
 
         </div>
 

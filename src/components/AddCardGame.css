@@ -99,3 +99,7 @@ input.error {
 .error {
   border: 1px solid red;
 }
+.default-validation-message {
+  color: #f45c42;
+  text-align: center;
+}
