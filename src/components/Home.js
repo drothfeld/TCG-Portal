@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import AuthUserContext from './AuthUserContext';
 import withAuthorization from './withAuthorization';
 import { db } from '../firebase';
 
@@ -9,41 +10,46 @@ class HomePage extends Component {
     super(props);
 
     this.state = {
-      users: null,
+      recordedGames: null,
     };
   }
 
   componentDidMount() {
-    db.onceGetUsers().then(snapshot =>
-      this.setState({ users: snapshot.val() })
+    db.onceGetRecordedGames().then(snapshot =>
+      this.setState({ recordedGames: snapshot.val() })
     );
   }
 
   render() {
-    const { users } = this.state;
+    const { recordedGames } = this.state
 
     return (
       <div>
-        <h1>Home</h1>
-        <p>The Home Page is accessible by every signed in user.</p>
-
-        { !!users && <UserList users = {users}/> }
+        { <AuthUserInfo />}
+        <h1>YOUR RECENT GAMES</h1>
+        { !!recordedGames && <RecordedGamesList recordedGames = {recordedGames}/> }
       </div>
     );
   }
 }
 
-/* Since returned users are objects, not a list, the users
+/* Since returned recorded-games are objects, not a list, the recorded-games
    must be mapped over the keys in order to display them. */
-const UserList = ({ users }) =>
+const RecordedGamesList = ({ recordedGames }) =>
   <div>
-    <h2>List of Usernames of Users</h2>
-    <p>(Saved on Sign Up in Firebase Database)</p>
-
-    { Object.keys(users).map(key =>
-      <div key = { key }>{ users[key].username }</div>
+    { Object.keys(recordedGames).map(key =>
+      <div key = { key }>{ recordedGames[key].winningColor }</div>
     )}
   </div>
+
+const AuthUserInfo = () =>
+  <AuthUserContext.Consumer>
+    { authUser =>
+      <div>
+        <h2><div>{ authUser.email }</div></h2>
+      </div>
+    }
+  </AuthUserContext.Consumer>
 
 const authCondition = (authUser) => !!authUser;
 

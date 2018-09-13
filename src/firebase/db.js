@@ -15,7 +15,7 @@ export const doCreateUser = (id, username, email) =>
 export const doDeleteUser = (id) =>
   db.ref(`users/${id}`).remove()
 
-// Retrieves all users from Firebase realtime db.
+// Retrieves all users from Firebase.
 export const onceGetUsers = () =>
   db.ref('users').once('value');
 
@@ -36,3 +36,7 @@ export const doCreateRecordedGame = (id, cardGame, date, playerOne, playerTwo, p
     losingColors,
     battleRoyale,
   });
+
+  // Retrieves all the recorded-game objects from Firebase.
+  export const onceGetRecordedGames = () =>
+    db.ref('recorded-games').once('value');
