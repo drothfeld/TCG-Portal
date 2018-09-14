@@ -10,6 +10,7 @@ class HomePage extends Component {
     super(props);
 
     this.state = {
+      users: null,
       recordedGames: null,
     };
   }
@@ -18,15 +19,19 @@ class HomePage extends Component {
     db.onceGetRecordedGames().then(snapshot =>
       this.setState({ recordedGames: snapshot.val() })
     );
+    db.onceGetUsers().then(snapshot =>
+      this.setState({ users: snapshot.val() })
+    );
   }
 
   render() {
+    const { users } = this.state
     const { recordedGames } = this.state
 
     return (
       <div>
-        { <AuthUserInfo />}
-        <h1>YOUR RECENT GAMES</h1>
+        { !!users && <AuthUserName users = {users}/> }
+        <h1>RECENT GAMES</h1>
         { !!recordedGames && <RecordedGamesList recordedGames = {recordedGames}/> }
       </div>
     );
@@ -42,14 +47,20 @@ const RecordedGamesList = ({ recordedGames }) =>
     )}
   </div>
 
-const AuthUserInfo = () =>
-  <AuthUserContext.Consumer>
-    { authUser =>
-      <div>
-        <h2><div>{ authUser.email }</div></h2>
-      </div>
-    }
-  </AuthUserContext.Consumer>
+  const AuthUserName = ({ users }) =>
+    <AuthUserContext.Consumer>
+      { authUser =>
+        <div>
+          { Object.keys(users).map(key =>
+            <div key = { key }>
+              <div hidden = { users[key].email !== authUser.email }>
+                { users[key].username }
+              </div>
+            </div>
+          )}
+        </div>
+      }
+    </AuthUserContext.Consumer>
 
 const authCondition = (authUser) => !!authUser;
 
