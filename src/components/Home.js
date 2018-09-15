@@ -31,7 +31,7 @@ class HomePage extends Component {
     return (
       <div>
         { !!users && <AuthUserName users = {users}/> }
-        <h1>RECENT GAMES</h1>
+        <div className="recent-games-title"><h1>YOUR RECENT GAMES</h1></div>
         { !!recordedGames && <RecordedGamesList recordedGames = {recordedGames}/> }
       </div>
     );
@@ -43,7 +43,20 @@ class HomePage extends Component {
 const RecordedGamesList = ({ recordedGames }) =>
   <div>
     { Object.keys(recordedGames).map(key =>
-      <div key = { key }>{ recordedGames[key].winningColor }</div>
+      <div className="recorded-game-container" key = { key }>
+        <div className="recorded-game-gameName"><b>{ recordedGames[key].cardGame } - { recordedGames[key].date }</b></div>
+        <div className="recorded-game-players">
+          <span style={{color: 'red'}}>{ recordedGames[key].playerOne }</span>
+          -VS-
+          <span style={{color: 'blue'}}>{ recordedGames[key].playerTwo }</span>
+          <span hidden = {recordedGames[key].battleRoyale === false}>
+            <span hidden = {recordedGames[key].playerThree === ""}>-VS-</span>
+            <span hidden = {recordedGames[key].playerThree === ""} style={{color: 'green'}}>{ recordedGames[key].playerThree }</span>
+            <span hidden = {recordedGames[key].playerFour === ""}>-VS-</span>
+            <span hidden = {recordedGames[key].playerFour === ""} style={{color: 'yellow'}}>{ recordedGames[key].playerFour }</span>
+          </span>
+        </div>
+      </div>
     )}
   </div>
 
