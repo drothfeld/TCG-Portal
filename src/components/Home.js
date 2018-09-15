@@ -25,8 +25,8 @@ class HomePage extends Component {
   }
 
   render() {
-    const { users } = this.state
-    const { recordedGames } = this.state
+    const { users } = this.state;
+    const { recordedGames } = this.state;
 
     return (
       <div>
@@ -42,18 +42,28 @@ class HomePage extends Component {
    must be mapped over the keys in order to display them. */
 const RecordedGamesList = ({ recordedGames }) =>
   <div>
-    { Object.keys(recordedGames).map(key =>
+    { Object.keys(recordedGames).reverse().slice(0, 5).map(key =>
       <div className="recorded-game-container" key = { key }>
         <div className="recorded-game-gameName"><b>{ recordedGames[key].cardGame } - { recordedGames[key].date }</b></div>
         <div className="recorded-game-players">
-          <span style={{color: 'red'}}>{ recordedGames[key].playerOne }</span>
-          -VS-
-          <span style={{color: 'blue'}}>{ recordedGames[key].playerTwo }</span>
+
+          <span hidden = {recordedGames[key].winningPlayer === recordedGames[key].playerOne}>{ recordedGames[key].playerOne } ({ recordedGames[key].losingDecksOrCharacterNames })</span>
+          <span hidden = {recordedGames[key].winningPlayer !== recordedGames[key].playerOne} style={{color: 'green'}}>{ recordedGames[key].playerOne } ({ recordedGames[key].winningDeckOrCharacterName })</span>
+          <div className="versus-player">-VS-</div>
+          <span hidden = {recordedGames[key].winningPlayer === recordedGames[key].playerTwo}>{ recordedGames[key].playerTwo } ({ recordedGames[key].losingDecksOrCharacterNames })</span>
+          <span hidden = {recordedGames[key].winningPlayer !== recordedGames[key].playerTwo} style={{color: 'green'}}>{ recordedGames[key].playerTwo } ({ recordedGames[key].winningDeckOrCharacterName })</span>
+
           <span hidden = {recordedGames[key].battleRoyale === false}>
-            <span hidden = {recordedGames[key].playerThree === ""}>-VS-</span>
-            <span hidden = {recordedGames[key].playerThree === ""} style={{color: 'green'}}>{ recordedGames[key].playerThree }</span>
-            <span hidden = {recordedGames[key].playerFour === ""}>-VS-</span>
-            <span hidden = {recordedGames[key].playerFour === ""} style={{color: 'yellow'}}>{ recordedGames[key].playerFour }</span>
+            <span hidden = {recordedGames[key].playerThree === ""}>
+              <div className="versus-player">-VS-</div>
+              <span hidden = {recordedGames[key].playerThree === "" && recordedGames[key].winningPlayer === recordedGames[key].playerThree}>{ recordedGames[key].playerThree }</span>
+              <span hidden = {recordedGames[key].playerThree === "" && recordedGames[key].winningPlayer !== recordedGames[key].playerThree} style={{color: 'green'}}>{ recordedGames[key].playerThree }</span>
+            </span>
+            <span hidden = {recordedGames[key].playerFour === ""}>
+              <div className="versus-player">-VS-</div>
+              <span hidden = {recordedGames[key].playerFour === "" && recordedGames[key].winningPlayer === recordedGames[key].playerFour}>{ recordedGames[key].playerFour }</span>
+              <span hidden = {recordedGames[key].playerFour === "" && recordedGames[key].winningPlayer !== recordedGames[key].playerFour} style={{color: 'green'}}>{ recordedGames[key].playerFour }</span>
+            </span>
           </span>
         </div>
       </div>
