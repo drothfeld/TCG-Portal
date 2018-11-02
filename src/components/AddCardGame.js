@@ -73,7 +73,7 @@ const byPropKey = (propertyName, value) => () => ({
 class AddCardGameForm extends Component {
   constructor(props) {
     super(props);
-    
+
     /* Setting field values to INITAL_STATE values. */
     this.state = { ...INITIAL_STATE };
   }

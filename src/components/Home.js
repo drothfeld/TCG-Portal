@@ -31,7 +31,9 @@ class HomePage extends Component {
     return (
       <div>
         { !!users && <AuthUserName users = {users}/> }
-        <div className="recent-games-title"><h1>YOUR RECENT GAMES</h1></div>
+        <div className="recent-games-title"><h1>STATS</h1></div>
+        TODO: INSERT GAME STATS. NEED APIS TO SAVE GAME STATS IN /user
+        <div className="recent-games-title"><h1>RECENT GAMES</h1></div>
         { !!recordedGames && <RecordedGamesList recordedGames = {recordedGames}/> }
       </div>
     );
@@ -42,7 +44,7 @@ class HomePage extends Component {
    must be mapped over the keys in order to display them. */
 const RecordedGamesList = ({ recordedGames }) =>
   <div>
-    { Object.keys(recordedGames).reverse().slice(0, 5).map(key =>
+    { Object.keys(recordedGames).slice(0, 5).map(key =>
       <div className="recorded-game-container" key = { key }>
         <div className="recorded-game-gameName"><b>{ recordedGames[key].cardGame } - { recordedGames[key].date }</b></div>
         <div className="recorded-game-players">
