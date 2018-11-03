@@ -17,22 +17,16 @@ class HomePage extends Component {
   }
 
   componentDidMount() {
-    db.onceGetRecordedGames().then(snapshot => {
-      this.setState({ recordedGames: snapshot.val() })
-      // Object.keys(snapshot.val()).map(key => {
-      //   console.log(snapshot.val()[key]);
-      //   // if (snapshot.val()[key])
-      // });
-    });
-
     firebase.auth.onAuthStateChanged(authUser => {
       db.getUser(authUser.uid).then(snapshot => {
         this.setState({ currentUser: snapshot.val().username })
-        this.setState({ gameStats: snapshot.val().playerStats})
+        this.setState({ gameStats: snapshot.val().playerStats })
       });
     });
 
-    console.log(this)
+    db.onceGetRecordedGames().then(games => {
+      this.setState({ recordedGames: games.val() })
+    });
   }
 
   render() {
@@ -44,8 +38,10 @@ class HomePage extends Component {
       <div>
         { !!currentUser && <AuthUserName currentUser = {currentUser}/> }
         <div className="recent-games-title"><h1>STATS</h1></div>
+
         { !!gameStats && <PlayerStats gameStats = {gameStats}/> }
         <div className="recent-games-title"><h1>RECENT GAMES</h1></div>
+
         { !!recordedGames && <RecordedGamesList recordedGames = {recordedGames}/> }
       </div>
     );
@@ -86,7 +82,7 @@ const RecordedGamesList = ({ recordedGames }) =>
 
 const PlayerStats = ({ gameStats }) =>
   <div>
-    Fire Emblem Cipher Win Rate: { gameStats.totalGameWins.cipherWins / (gameStats.totalGameWins.cipherWins + gameStats.totalGameLosses.cipherLosses) }
+    Fire Emblem Cipher Win Rate: { gameStats.fireEmblemCipher.overallWinRate }
   </div>
 
 const AuthUserName = ({ currentUser }) =>
