@@ -58,3 +58,11 @@ export const doSetUserLosses = (id, cipherLosses, magicLosses, pokemonLosses, yu
     pokemonLosses,
     yugiohLosses,
   });
+
+// Gets all the users card game win counts
+export const getUserWins = (id) =>
+  db.ref(`users/${id}/cardGameWins`).once('value');
+
+// Get all the users card game lose counts
+export const getUserLosses = (id) =>
+  db.ref(`users/${id}/cardGameLosses`).once('value');

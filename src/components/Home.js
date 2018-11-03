@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import AuthUserContext from './AuthUserContext';
 import withAuthorization from './withAuthorization';
 import { db } from '../firebase';
+import { firebase } from '../firebase';
 
 /* Wrapped in higher order component wtih defined authorization for this component. */
 class HomePage extends Component {
@@ -12,6 +13,9 @@ class HomePage extends Component {
     this.state = {
       users: null,
       recordedGames: null,
+      authUser: null,
+      userWins: null,
+      userLosses: null,
     };
   }
 
@@ -19,14 +23,33 @@ class HomePage extends Component {
     db.onceGetRecordedGames().then(snapshot =>
       this.setState({ recordedGames: snapshot.val() })
     );
+
     db.onceGetUsers().then(snapshot =>
       this.setState({ users: snapshot.val() })
     );
+
+    firebase.auth.onAuthStateChanged(authUser => {
+      this.setState({ authUser: authUser})
+
+      db.getUserWins(authUser.uid).then(snapshot =>
+        this.setState({ userWins: snapshot.val() })
+      );
+
+      db.getUserLosses(authUser.uid).then(snapshot =>
+        this.setState({ userLosses: snapshot.val() })
+      );
+    });
+
+    console.log(this)
   }
 
   render() {
     const { users } = this.state;
     const { recordedGames } = this.state;
+    // const { gameStats } = {
+    //   wins: this.state.userWins,
+    //   losses: this.state.userLosses,
+    // };
 
     return (
       <div>
