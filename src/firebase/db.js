@@ -19,6 +19,10 @@ export const doDeleteUser = (id) =>
 export const onceGetUsers = () =>
   db.ref('users').once('value');
 
+// Retrieves a single user from Firebase.
+export const getUser = (id) =>
+  db.ref(`users/${id}`).once('value');
+
 // Creates a new recorded-game object in Firebase.
 export const doCreateRecordedGame = (id, cardGame, date, playerOne, playerTwo, playerThree, playerFour, winningPlayer, winningDeckOrCharacterName, winningColor, losingPlayers, losingDecksOrCharacterNames, losingColors, battleRoyale,) =>
   db.ref(`recorded-games/${id}`).set({

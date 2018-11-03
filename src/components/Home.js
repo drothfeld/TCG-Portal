@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import AuthUserContext from './AuthUserContext';
 import withAuthorization from './withAuthorization';
 import { db } from '../firebase';
 import { firebase } from '../firebase';
@@ -11,44 +10,39 @@ class HomePage extends Component {
     super(props);
 
     this.state = {
-      users: null,
       recordedGames: null,
-      authUser: null,
+      currentUser: null,
       gameStats: null,
     };
   }
 
   componentDidMount() {
-    db.onceGetRecordedGames().then(snapshot =>
+    db.onceGetRecordedGames().then(snapshot => {
       this.setState({ recordedGames: snapshot.val() })
-    );
-
-    db.onceGetUsers().then(snapshot =>
-      this.setState({ users: snapshot.val() })
-    );
+      // Object.keys(snapshot.val()).map(key => {
+      //   console.log(snapshot.val()[key]);
+      //   // if (snapshot.val()[key])
+      // });
+    });
 
     firebase.auth.onAuthStateChanged(authUser => {
-      this.setState({ authUser: authUser})
-
-      db.getUserGameStats(authUser.uid).then(snapshot =>
-        this.setState({ gameStats: snapshot.val() })
-      );
+      db.getUser(authUser.uid).then(snapshot => {
+        this.setState({ currentUser: snapshot.val().username })
+        this.setState({ gameStats: snapshot.val().playerStats})
+      });
     });
 
     console.log(this)
   }
 
   render() {
-    const { users } = this.state;
     const { recordedGames } = this.state;
-    // const { gameStats } = {
-    //   wins: this.state.userWins,
-    //   losses: this.state.userLosses,
-    // };
+    const { currentUser } = this.state;
     const { gameStats } = this.state;
+
     return (
       <div>
-        { !!users && <AuthUserName users = {users}/> }
+        { !!currentUser && <AuthUserName currentUser = {currentUser}/> }
         <div className="recent-games-title"><h1>STATS</h1></div>
         { !!gameStats && <PlayerStats gameStats = {gameStats}/> }
         <div className="recent-games-title"><h1>RECENT GAMES</h1></div>
@@ -90,25 +84,15 @@ const RecordedGamesList = ({ recordedGames }) =>
     )}
   </div>
 
-  const PlayerStats = ({ gameStats }) =>
-    <div>
-      Fire Emblem Cipher Win Rate: { gameStats.totalGameWins.cipherWins / (gameStats.totalGameWins.cipherWins + gameStats.totalGameLosses.cipherLosses) }
-    </div>
+const PlayerStats = ({ gameStats }) =>
+  <div>
+    Fire Emblem Cipher Win Rate: { gameStats.totalGameWins.cipherWins / (gameStats.totalGameWins.cipherWins + gameStats.totalGameLosses.cipherLosses) }
+  </div>
 
-  const AuthUserName = ({ users }) =>
-    <AuthUserContext.Consumer>
-      { authUser =>
-        <div>
-          { Object.keys(users).map(key =>
-            <div key = { key }>
-              <div hidden = { users[key].email !== authUser.email }>
-                { users[key].username }
-              </div>
-            </div>
-          )}
-        </div>
-      }
-    </AuthUserContext.Consumer>
+const AuthUserName = ({ currentUser }) =>
+  <div>
+    {currentUser}
+  </div>
 
 const authCondition = (authUser) => !!authUser;
 
