@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import withAuthorization from './withAuthorization';
 import { db } from '../firebase';
 import { firebase } from '../firebase';
+import * as cardGames from '../constants/cardGames';
 
 /* Wrapped in higher order component wtih defined authorization for this component. */
 class HomePage extends Component {
@@ -20,12 +21,25 @@ class HomePage extends Component {
     firebase.auth.onAuthStateChanged(authUser => {
       db.getUser(authUser.uid).then(snapshot => {
         this.setState({ currentUser: snapshot.val().username })
-        this.setState({ gameStats: snapshot.val().playerStats })
-      });
-    });
+        this.setState({ gameStats: snapshot.val().playerStats})
 
-    db.onceGetRecordedGames().then(games => {
-      this.setState({ recordedGames: games.val() })
+        db.onceGetRecordedGames().then(games => {
+          this.setState({ recordedGames: games.val() })
+          var cipher = { total: 0, wins: 0, losses: 0, winrate: 0.0 }
+          Object.keys(games.val()).map(key => {
+            // Game is of type Fire Emblem Cipher
+            if (games.val()[key].cardGame === cardGames.FE_CIPHER) {
+              // Player win
+              if (games.val()[key].winningPlayer === snapshot.val().username) { cipher.wins += 1; cipher.total += 1; }
+              // Player losses
+              else if (games.val()[key].losingPlayers === snapshot.val().username) { cipher.losses += 1; cipher.total += 1; }
+            } return null;
+          });
+          // Update current users Firebase game stats
+          cipher.winrate = (cipher.wins / cipher.total);
+          db.setUserGameStatsCIPHER(authUser.uid, cipher.total, cipher.wins, cipher.losses, cipher.winrate);
+        });
+      });
     });
   }
 
