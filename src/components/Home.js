@@ -14,8 +14,7 @@ class HomePage extends Component {
       users: null,
       recordedGames: null,
       authUser: null,
-      userWins: null,
-      userLosses: null,
+      gameStats: null,
     };
   }
 
@@ -31,12 +30,8 @@ class HomePage extends Component {
     firebase.auth.onAuthStateChanged(authUser => {
       this.setState({ authUser: authUser})
 
-      db.getUserWins(authUser.uid).then(snapshot =>
-        this.setState({ userWins: snapshot.val() })
-      );
-
-      db.getUserLosses(authUser.uid).then(snapshot =>
-        this.setState({ userLosses: snapshot.val() })
+      db.getUserGameStats(authUser.uid).then(snapshot =>
+        this.setState({ gameStats: snapshot.val() })
       );
     });
 
@@ -50,12 +45,12 @@ class HomePage extends Component {
     //   wins: this.state.userWins,
     //   losses: this.state.userLosses,
     // };
-
+    const { gameStats } = this.state;
     return (
       <div>
         { !!users && <AuthUserName users = {users}/> }
         <div className="recent-games-title"><h1>STATS</h1></div>
-        TODO: INSERT GAME STATS. NEED APIS TO SAVE GAME STATS IN /user
+        { !!gameStats && <PlayerStats gameStats = {gameStats}/> }
         <div className="recent-games-title"><h1>RECENT GAMES</h1></div>
         { !!recordedGames && <RecordedGamesList recordedGames = {recordedGames}/> }
       </div>
@@ -94,6 +89,11 @@ const RecordedGamesList = ({ recordedGames }) =>
       </div>
     )}
   </div>
+
+  const PlayerStats = ({ gameStats }) =>
+    <div>
+      Fire Emblem Cipher Win Rate: { gameStats.totalGameWins.cipherWins / (gameStats.totalGameWins.cipherWins + gameStats.totalGameLosses.cipherLosses) }
+    </div>
 
   const AuthUserName = ({ users }) =>
     <AuthUserContext.Consumer>

@@ -42,8 +42,8 @@ export const onceGetRecordedGames = () =>
   db.ref('recorded-games').once('value');
 
 // Updates the amount of total card game wins a user has.
-export const doSetUserWins = (id, cipherWins, magicWins, pokemonWins, yugiohWins) =>
-  db.ref(`users/${id}/cardGameWins`).set({
+export const doSetUserTotalWins = (id, cipherWins, magicWins, pokemonWins, yugiohWins) =>
+  db.ref(`users/${id}/playerStats/totalGameWins`).set({
     cipherWins,
     magicWins,
     pokemonWins,
@@ -51,8 +51,8 @@ export const doSetUserWins = (id, cipherWins, magicWins, pokemonWins, yugiohWins
   });
 
 // Updates the amount of total card game losses a user has.
-export const doSetUserLosses = (id, cipherLosses, magicLosses, pokemonLosses, yugiohLosses) =>
-  db.ref(`users/${id}/cardGameLosses`).set({
+export const doSetUserTotalLosses = (id, cipherLosses, magicLosses, pokemonLosses, yugiohLosses) =>
+  db.ref(`users/${id}/playerStats/totalGameLosses`).set({
     cipherLosses,
     magicLosses,
     pokemonLosses,
@@ -60,9 +60,13 @@ export const doSetUserLosses = (id, cipherLosses, magicLosses, pokemonLosses, yu
   });
 
 // Gets all the users card game win counts
-export const getUserWins = (id) =>
-  db.ref(`users/${id}/cardGameWins`).once('value');
+export const getUserTotalWins = (id) =>
+  db.ref(`users/${id}/playerStats/totalGameWins`).once('value');
 
 // Get all the users card game lose counts
-export const getUserLosses = (id) =>
-  db.ref(`users/${id}/cardGameLosses`).once('value');
+export const getUserTotalLosses = (id) =>
+  db.ref(`users/${id}/playerStats/totalGameLosses`).once('value');
+
+// Get all of the game stats for a user
+export const getUserGameStats = (id) =>
+  db.ref(`users/${id}/playerStats`).once('value');
