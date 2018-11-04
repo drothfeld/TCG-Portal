@@ -45,9 +45,36 @@ export const doCreateRecordedGame = (id, cardGame, date, playerOne, playerTwo, p
 export const onceGetRecordedGames = () =>
   db.ref('recorded-games').once('value');
 
-// Updates the amount of total card game wins a user has.
+// Updates a players game stats for Fire Emblem Cipher.
 export const setUserGameStatsCIPHER = (id, totalGames, totalWins, totalLosses, overallWinRate) =>
   db.ref(`users/${id}/playerStats/fireEmblemCipher`).set({
+    totalGames,
+    totalWins,
+    totalLosses,
+    overallWinRate,
+  });
+
+// Updates a players game stats for Magic The Gathering
+export const setUserGameStatsMAGIC = (id, totalGames, totalWins, totalLosses, overallWinRate) =>
+  db.ref(`users/${id}/playerStats/magicTheGathering`).set({
+    totalGames,
+    totalWins,
+    totalLosses,
+    overallWinRate,
+  });
+
+// Updates a players game stats for Pokémon
+export const setUserGameStatsPOKEMON = (id, totalGames, totalWins, totalLosses, overallWinRate) =>
+  db.ref(`users/${id}/playerStats/pokemon`).set({
+    totalGames,
+    totalWins,
+    totalLosses,
+    overallWinRate,
+  });
+
+// Updates a players game stats for Yu-Gi-Oh
+export const setUserGameStatsYUGIOH = (id, totalGames, totalWins, totalLosses, overallWinRate) =>
+  db.ref(`users/${id}/playerStats/yugioh`).set({
     totalGames,
     totalWins,
     totalLosses,

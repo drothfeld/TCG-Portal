@@ -26,18 +26,59 @@ class HomePage extends Component {
         db.onceGetRecordedGames().then(games => {
           this.setState({ recordedGames: games.val() })
           var cipher = { total: 0, wins: 0, losses: 0, winrate: 0.0 }
+          var magic = { total: 0, wins: 0, losses: 0, winrate: 0.0 }
+          var pokemon = { total: 0, wins: 0, losses: 0, winrate: 0.0 }
+          var yugioh = { total: 0, wins: 0, losses: 0, winrate: 0.0 }
           Object.keys(games.val()).map(key => {
+
             // Game is of type Fire Emblem Cipher
             if (games.val()[key].cardGame === cardGames.FE_CIPHER) {
               // Player win
               if (games.val()[key].winningPlayer === snapshot.val().username) { cipher.wins += 1; cipher.total += 1; }
               // Player losses
               else if (games.val()[key].losingPlayers === snapshot.val().username) { cipher.losses += 1; cipher.total += 1; }
-            } return null;
+            }
+
+            // Game is of type Magic The Gathering
+            if (games.val()[key].cardGame === cardGames.MAGIC) {
+              // Player win
+              if (games.val()[key].winningPlayer === snapshot.val().username) { magic.wins += 1; magic.total += 1; }
+              // Player losses
+              else if (games.val()[key].losingPlayers === snapshot.val().username) { magic.losses += 1; magic.total += 1; }
+            }
+
+            // Game is of type Pokémon
+            if (games.val()[key].cardGame === cardGames.POKEMON) {
+              // Player win
+              if (games.val()[key].winningPlayer === snapshot.val().username) { pokemon.wins += 1; pokemon.total += 1; }
+              // Player losses
+              else if (games.val()[key].losingPlayers === snapshot.val().username) { pokemon.losses += 1; pokemon.total += 1; }
+            }
+
+            // Game is of type Yu-Gi-Oh
+            if (games.val()[key].cardGame === cardGames.YUGIOH) {
+              // Player win
+              if (games.val()[key].winningPlayer === snapshot.val().username) { yugioh.wins += 1; yugioh.total += 1; }
+              // Player losses
+              else if (games.val()[key].losingPlayers === snapshot.val().username) { yugioh.losses += 1; yugioh.total += 1; }
+            }
+            return null;
           });
-          // Update current users Firebase game stats
-          cipher.winrate = (cipher.wins / cipher.total);
+          // Update current users Firebase game stats for Fire Emblem Cipher
+          if (cipher.total !== 0) { cipher.winrate = (cipher.wins / cipher.total); }
           db.setUserGameStatsCIPHER(authUser.uid, cipher.total, cipher.wins, cipher.losses, cipher.winrate);
+
+          // Update current users Firebase game stats for Magic The Gathering
+          if (magic.total !== 0) { magic.winrate = (magic.wins / magic.total); }
+          db.setUserGameStatsMAGIC(authUser.uid, magic.total, magic.wins, magic.losses, magic.winrate);
+
+          // Update current users Firebase game stats for Pokémon
+          if (pokemon.total !== 0) { pokemon.winrate = (pokemon.wins / pokemon.total); }
+          db.setUserGameStatsPOKEMON(authUser.uid, pokemon.total, pokemon.wins, pokemon.losses, pokemon.winrate);
+
+          // Update current users Firebase game stats for Yu-Gi-Oh
+          if (yugioh.total !== 0) { yugioh.winrate = (yugioh.wins / yugioh.total); }
+          db.setUserGameStatsYUGIOH(authUser.uid, yugioh.total, yugioh.wins, yugioh.losses, yugioh.winrate);
         });
       });
     });
