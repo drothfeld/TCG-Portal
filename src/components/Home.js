@@ -4,6 +4,7 @@ import withAuthorization from './withAuthorization';
 import { db } from '../firebase';
 import { firebase } from '../firebase';
 import * as cardGames from '../constants/cardGames';
+import './Home.css';
 
 /* Wrapped in higher order component wtih defined authorization for this component. */
 class HomePage extends Component {
@@ -92,7 +93,7 @@ class HomePage extends Component {
     return (
       <div>
         { !!currentUser && <AuthUserName currentUser = {currentUser}/> }
-        <div className="recent-games-title"><h1>STATS</h1></div>
+        <div className="recent-games-title"><h1>GAME STATS</h1></div>
 
         { !!gameStats && <PlayerStats gameStats = {gameStats}/> }
         <div className="recent-games-title"><h1>RECENT GAMES</h1></div>
@@ -137,7 +138,33 @@ const RecordedGamesList = ({ recordedGames }) =>
 
 const PlayerStats = ({ gameStats }) =>
   <div>
-    Fire Emblem Cipher Win Rate: { gameStats.fireEmblemCipher.overallWinRate }
+    <div className="player-gameStats" hidden = {gameStats.fireEmblemCipher.totalGames === 0}><b>{cardGames.FE_CIPHER}</b> ({ gameStats.fireEmblemCipher.totalGames } Games)
+      <div><b>Win Rate:</b> { parseFloat(gameStats.fireEmblemCipher.overallWinRate.toFixed(4)) }</div>
+      <div><b>Total Wins:</b> { gameStats.fireEmblemCipher.totalWins }</div>
+      <div><b>Total Losses:</b> { gameStats.fireEmblemCipher.totalLosses }</div>
+      <hr/>
+    </div>
+
+    <div className="player-gameStats" hidden = {gameStats.magicTheGathering.totalGames === 0}><b>{cardGames.MAGIC}</b> ({ gameStats.magicTheGathering.totalGames } Games)
+      <div><b>Win Rate:</b> { parseFloat(gameStats.magicTheGathering.overallWinRate.toFixed(4)) }</div>
+      <div><b>Total Wins:</b> { gameStats.magicTheGathering.totalWins }</div>
+      <div><b>Total Losses:</b> { gameStats.magicTheGathering.totalLosses }</div>
+      <hr/>
+    </div>
+
+    <div className="player-gameStats" hidden = {gameStats.pokemon.totalGames === 0}><b>{cardGames.POKEMON}</b> ({ gameStats.pokemon.totalGames } Games)
+      <div><b>Win Rate:</b> { parseFloat(gameStats.pokemon.overallWinRate.toFixed(4)) }</div>
+      <div><b>Total Wins:</b> { gameStats.pokemon.totalWins }</div>
+      <div><b>Total Losses:</b> { gameStats.pokemon.totalLosses }</div>
+      <hr/>
+    </div>
+
+    <div className="player-gameStats" hidden = {gameStats.yugioh.totalGames === 0}><b>{cardGames.YUGIOH}</b> ({ gameStats.yugioh.totalGames } Games)
+      <div><b>Win Rate:</b> { parseFloat(gameStats.yugioh.overallWinRate.toFixed(4)) }</div>
+      <div><b>Total Wins:</b> { gameStats.yugioh.totalWins }</div>
+      <div><b>Total Losses:</b> { gameStats.yugioh.totalLosses }</div>
+      <hr/>
+    </div>
   </div>
 
 const AuthUserName = ({ currentUser }) =>
