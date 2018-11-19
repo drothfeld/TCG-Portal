@@ -24,6 +24,7 @@ const NavigationAuth = () =>
     <li><Link style={{ textDecoration: 'none', color: 'white', padding: 10, fontSize: 15 }} to={routes.HOME}>Home</Link></li>
     <li><Link style={{ textDecoration: 'none', color: 'white', padding: 10, fontSize: 15 }} to={routes.ACCOUNT}>Account</Link></li>
     <li><Link style={{ textDecoration: 'none', color: 'white', padding: 10, fontSize: 15 }} to={routes.ADD_CARD_GAME}>Add</Link></li>
+    <li><Link style={{ textDecoration: 'none', color: 'white', padding: 10, fontSize: 15 }} to={routes.RANKINGS}>Ranks</Link></li>
     <li style={{ float: 'right' }}><SignOutButton/></li>
   </ul>
 
