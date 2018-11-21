@@ -1,0 +1,54 @@
+.rankings-row {
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-size: 21px;
+  margin-bottom: 5px;
+}
+
+.rankings-header {
+  background-color: black;
+  color: white;
+}
+
+.rankings-page-title {
+  text-align: center;
+}
+
+.rankings-row-even {
+  background-color: #d9dce0;
+}
+
+.rankings-row-odd {
+  background-color: blue;
+
+}
+
+.rankings-ranking {
+}
+
+.rankings-user {
+  position: fixed;
+  left: 15%;
+}
+
+.rankings-wins {
+  position: fixed;
+  left: 35%;
+}
+
+.rankings-losses {
+  position: fixed;
+  left: 45%;
+}
+
+.rankings-total {
+  position: fixed;
+  left: 60%;
+}
+
+.rankings-winrate {
+  position: fixed;
+  left: 80%;
+}
