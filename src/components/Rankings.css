@@ -12,6 +12,20 @@
   color: white;
 }
 
+.rankings-toolbar {
+  background: grey;
+  margin-top: 50px;
+}
+
+.rankings-game-select {
+  font-size: 15px;
+}
+
+.rankings-select-container {
+  margin-left: 75%;
+  margin-right: 5%;
+}
+
 .rankings-page-title {
   text-align: center;
 }
@@ -22,7 +36,6 @@
 
 .rankings-row-odd {
   background-color: blue;
-
 }
 
 .rankings-ranking {
