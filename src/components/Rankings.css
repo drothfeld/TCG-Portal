@@ -15,15 +15,31 @@
 .rankings-toolbar {
   background: grey;
   margin-top: 50px;
+  width: 100%;
+  display: inline-block;
 }
 
 .rankings-game-select {
   font-size: 15px;
+  border-radius: 25px;
+  outline: none;
 }
 
 .rankings-select-container {
-  margin-left: 75%;
-  margin-right: 5%;
+  padding: 5px;
+  float: left;
+}
+
+.rankings-text-search {
+  height: 45px;
+  font-size: 12px;
+  border-radius: 25px;
+  outline: none;
+}
+
+.rankings-text-search-container {
+  padding: 5px;
+  float: left;
 }
 
 .rankings-page-title {
@@ -35,7 +51,7 @@
 }
 
 .rankings-row-odd {
-  background-color: blue;
+  background-color: #d9dce0;
 }
 
 .rankings-ranking {

@@ -25,6 +25,10 @@ class RankingsPage extends Component {
 
   render() {
     const { cardGameFilter, textSearch } = this.state;
+    let props = {
+      cardGameFilter,
+      textSearch
+    }
 
     return (
       <div>
@@ -32,6 +36,17 @@ class RankingsPage extends Component {
         <hr/>
 
         <div className = "rankings-toolbar">
+
+          <div className = "rankings-text-search-container">
+            <input className = "rankings-text-search"
+              style={{ backgroundColor: 'white'}}
+              value = { textSearch }
+              onChange = { event => this.setState(byPropKey('textSearch', event.target.value))}
+              onBlur = { this.handleBlur('textSearch') }
+              type = "text"
+              placeholder = "Search for Player:"
+            />
+          </div>
 
           <div className="rankings-select-container">
             <select className="rankings-game-select"
@@ -43,7 +58,7 @@ class RankingsPage extends Component {
 
         </div>
         <h2>{ cardGameFilter }</h2>
-        <RankingsUserList cardGameFilter = { cardGameFilter }/>
+        <RankingsUserList { ...props }/>
       </div>
     );
   }
@@ -62,6 +77,7 @@ class RankingsUserList extends Component {
     this.state = {
       users: null,
       cardGameFilter: props.cardGameFilter,
+      textSearch: props.textSearch,
     };
   }
 
@@ -71,9 +87,23 @@ class RankingsUserList extends Component {
     );
   }
 
+  filterUsers(users, textFilter) {
+    var filteredUsersList = [];
+    for (var key in users) {
+      var obj = users[key];
+      if (obj.username.toLowerCase().includes(textFilter.toLowerCase())) {
+        filteredUsersList.push(obj);
+      }
+    }
+    return filteredUsersList;
+  }
+
   render() {
-    const { cardGameFilter } = this.props;
+    let cardGameFilter = this.props.cardGameFilter;
+    let textSearch = this.props.textSearch;
     const { users } = this.state;
+    const filteredUsers = this.filterUsers(users, textSearch);
+    // Still need to sort displayed users by ranking
 
     return (
       <div>
@@ -85,10 +115,10 @@ class RankingsUserList extends Component {
           <span className = "rankings-total">TOTAL GAMES</span>
           <span className = "rankings-winrate">WINRATE</span></b>
         </div>
-        <div hidden = { cardGameFilter !== cardGames.FE_CIPHER }>{ !!users && <FireEmblemCipherUserRanks users = {users}/> }</div>
-        <div hidden = { cardGameFilter !== cardGames.MAGIC }>{ !!users && <MagicTheGatheringUserRanks users = {users}/> }</div>
-        <div hidden = { cardGameFilter !== cardGames.POKEMON }>{ !!users && <PokemonUserRanks users = {users}/> }</div>
-        <div hidden = { cardGameFilter !== cardGames.YUGIOH }>{ !!users && <YuGiOhUserRanks users = {users}/> }</div>
+        <div hidden = { cardGameFilter !== cardGames.FE_CIPHER }>{ !!filteredUsers && <FireEmblemCipherUserRanks filteredUsers = {filteredUsers}/> }</div>
+        <div hidden = { cardGameFilter !== cardGames.MAGIC }>{ !!filteredUsers && <MagicTheGatheringUserRanks filteredUsers = {filteredUsers}/> }</div>
+        <div hidden = { cardGameFilter !== cardGames.POKEMON }>{ !!filteredUsers && <PokemonUserRanks filteredUsers = {filteredUsers}/> }</div>
+        <div hidden = { cardGameFilter !== cardGames.YUGIOH }>{ !!filteredUsers && <YuGiOhUserRanks filteredUsers = {filteredUsers}/> }</div>
       </div>
     );
   }
@@ -96,58 +126,58 @@ class RankingsUserList extends Component {
 
 /* Since returned users are objects, not a list, the users
    must be mapped over the keys in order to display them. */
-const FireEmblemCipherUserRanks = ({ users }) =>
+const FireEmblemCipherUserRanks = ({ filteredUsers }) =>
   <div>
-    { Object.keys(users).map(key =>
+    { Object.keys(filteredUsers).map(key =>
       <div className = {"rankings-row " + ( (((key + 1) % 2) === 1) ? 'rankings-row-odd' : 'rankings-row-even')} key = { key }>
-        <span className = "rankings-ranking"><b>{ (users[key].playerStats.fireEmblemCipher.totalWins * users[key].playerStats.fireEmblemCipher.overallWinRate * 100).toFixed(0) }</b></span>
-        <span className = "rankings-user">{ users[key].username }</span>
-        <span className = "rankings-wins">{ users[key].playerStats.fireEmblemCipher.totalWins }</span>
-        <span className = "rankings-losses">{ users[key].playerStats.fireEmblemCipher.totalLosses }</span>
-        <span className = "rankings-total">{ users[key].playerStats.fireEmblemCipher.totalGames }</span>
-        <span className = "rankings-winrate">{ users[key].playerStats.fireEmblemCipher.overallWinRate.toFixed(3) * 100 }%</span>
+        <span className = "rankings-ranking"><b>{ (filteredUsers[key].playerStats.fireEmblemCipher.totalWins * filteredUsers[key].playerStats.fireEmblemCipher.overallWinRate * 100).toFixed(0) }</b></span>
+        <span className = "rankings-user">{ filteredUsers[key].username }</span>
+        <span className = "rankings-wins">{ filteredUsers[key].playerStats.fireEmblemCipher.totalWins }</span>
+        <span className = "rankings-losses">{ filteredUsers[key].playerStats.fireEmblemCipher.totalLosses }</span>
+        <span className = "rankings-total">{ filteredUsers[key].playerStats.fireEmblemCipher.totalGames }</span>
+        <span className = "rankings-winrate">{ filteredUsers[key].playerStats.fireEmblemCipher.overallWinRate.toFixed(3) * 100 }%</span>
       </div>
     )}
   </div>
 
-const MagicTheGatheringUserRanks = ({ users }) =>
+const MagicTheGatheringUserRanks = ({ filteredUsers }) =>
   <div>
-    { Object.keys(users).map(key =>
+    { Object.keys(filteredUsers).map(key =>
       <div className = {"rankings-row " + ( (((key + 1) % 2) === 1) ? 'rankings-row-odd' : 'rankings-row-even')} key = { key }>
-        <span className = "rankings-ranking"><b>{ (users[key].playerStats.magicTheGathering.totalWins * users[key].playerStats.magicTheGathering.overallWinRate * 100).toFixed(0) }</b></span>
-        <span className = "rankings-user">{ users[key].username }</span>
-        <span className = "rankings-wins">{ users[key].playerStats.magicTheGathering.totalWins }</span>
-        <span className = "rankings-losses">{ users[key].playerStats.magicTheGathering.totalLosses }</span>
-        <span className = "rankings-total">{ users[key].playerStats.magicTheGathering.totalGames }</span>
-        <span className = "rankings-winrate">{ users[key].playerStats.magicTheGathering.overallWinRate.toFixed(3) * 100 }%</span>
+        <span className = "rankings-ranking"><b>{ (filteredUsers[key].playerStats.magicTheGathering.totalWins * filteredUsers[key].playerStats.magicTheGathering.overallWinRate * 100).toFixed(0) }</b></span>
+        <span className = "rankings-user">{ filteredUsers[key].username }</span>
+        <span className = "rankings-wins">{ filteredUsers[key].playerStats.magicTheGathering.totalWins }</span>
+        <span className = "rankings-losses">{ filteredUsers[key].playerStats.magicTheGathering.totalLosses }</span>
+        <span className = "rankings-total">{ filteredUsers[key].playerStats.magicTheGathering.totalGames }</span>
+        <span className = "rankings-winrate">{ filteredUsers[key].playerStats.magicTheGathering.overallWinRate.toFixed(3) * 100 }%</span>
       </div>
     )}
   </div>
 
-const PokemonUserRanks = ({ users }) =>
+const PokemonUserRanks = ({ filteredUsers }) =>
   <div>
-    { Object.keys(users).map(key =>
+    { Object.keys(filteredUsers).map(key =>
       <div className = {"rankings-row " + ( (((key + 1) % 2) === 1) ? 'rankings-row-odd' : 'rankings-row-even')} key = { key }>
-        <span className = "rankings-ranking"><b>{ (users[key].playerStats.pokemon.totalWins * users[key].playerStats.pokemon.overallWinRate * 100).toFixed(0) }</b></span>
-        <span className = "rankings-user">{ users[key].username }</span>
-        <span className = "rankings-wins">{ users[key].playerStats.pokemon.totalWins }</span>
-        <span className = "rankings-losses">{ users[key].playerStats.pokemon.totalLosses }</span>
-        <span className = "rankings-total">{ users[key].playerStats.pokemon.totalGames }</span>
-        <span className = "rankings-winrate">{ users[key].playerStats.pokemon.overallWinRate.toFixed(3) * 100 }%</span>
+        <span className = "rankings-ranking"><b>{ (filteredUsers[key].playerStats.pokemon.totalWins * filteredUsers[key].playerStats.pokemon.overallWinRate * 100).toFixed(0) }</b></span>
+        <span className = "rankings-user">{ filteredUsers[key].username }</span>
+        <span className = "rankings-wins">{ filteredUsers[key].playerStats.pokemon.totalWins }</span>
+        <span className = "rankings-losses">{ filteredUsers[key].playerStats.pokemon.totalLosses }</span>
+        <span className = "rankings-total">{ filteredUsers[key].playerStats.pokemon.totalGames }</span>
+        <span className = "rankings-winrate">{ filteredUsers[key].playerStats.pokemon.overallWinRate.toFixed(3) * 100 }%</span>
       </div>
     )}
   </div>
 
-const YuGiOhUserRanks = ({ users }) =>
+const YuGiOhUserRanks = ({ filteredUsers }) =>
   <div>
-    { Object.keys(users).map(key =>
+    { Object.keys(filteredUsers).map(key =>
       <div className = {"rankings-row " + ( (((key + 1) % 2) === 1) ? 'rankings-row-odd' : 'rankings-row-even')} key = { key }>
-        <span className = "rankings-ranking"><b>{ (users[key].playerStats.yugioh.totalWins * users[key].playerStats.yugioh.overallWinRate * 100).toFixed(0) }</b></span>
-        <span className = "rankings-user">{ users[key].username }</span>
-        <span className = "rankings-wins">{ users[key].playerStats.yugioh.totalWins }</span>
-        <span className = "rankings-losses">{ users[key].playerStats.yugioh.totalLosses }</span>
-        <span className = "rankings-total">{ users[key].playerStats.yugioh.totalGames }</span>
-        <span className = "rankings-winrate">{ users[key].playerStats.yugioh.overallWinRate.toFixed(3) * 100 }%</span>
+        <span className = "rankings-ranking"><b>{ (filteredUsers[key].playerStats.yugioh.totalWins * filteredUsers[key].playerStats.yugioh.overallWinRate * 100).toFixed(0) }</b></span>
+        <span className = "rankings-user">{ filteredUsers[key].username }</span>
+        <span className = "rankings-wins">{ filteredUsers[key].playerStats.yugioh.totalWins }</span>
+        <span className = "rankings-losses">{ filteredUsers[key].playerStats.yugioh.totalLosses }</span>
+        <span className = "rankings-total">{ filteredUsers[key].playerStats.yugioh.totalGames }</span>
+        <span className = "rankings-winrate">{ filteredUsers[key].playerStats.yugioh.overallWinRate.toFixed(3) * 100 }%</span>
       </div>
     )}
   </div>
