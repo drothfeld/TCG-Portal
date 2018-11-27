@@ -98,12 +98,34 @@ class RankingsUserList extends Component {
     return filteredUsersList;
   }
 
+  sortByRank(users, cardGameFilter) {
+    if (cardGameFilter === cardGames.FE_CIPHER) {
+      return users.sort((a,b) =>
+      ((a.playerStats.fireEmblemCipher.totalWins * a.playerStats.fireEmblemCipher.overallWinRate * 100) < (b.playerStats.fireEmblemCipher.totalWins * b.playerStats.fireEmblemCipher.overallWinRate * 100)) ? 1 :
+      (((b.playerStats.fireEmblemCipher.totalWins * b.playerStats.fireEmblemCipher.overallWinRate * 100) < (a.playerStats.fireEmblemCipher.totalWins * a.playerStats.fireEmblemCipher.overallWinRate * 100)) ? -1 : 0));
+    }
+    if (cardGameFilter === cardGames.MAGIC) {
+      return users.sort((a,b) =>
+      ((a.playerStats.magicTheGathering.totalWins * a.playerStats.magicTheGathering.overallWinRate * 100) < (b.playerStats.magicTheGathering.totalWins * b.playerStats.magicTheGathering.overallWinRate * 100)) ? 1 :
+      (((b.playerStats.magicTheGathering.totalWins * b.playerStats.magicTheGathering.overallWinRate * 100) < (a.playerStats.magicTheGathering.totalWins * a.playerStats.magicTheGathering.overallWinRate * 100)) ? -1 : 0));
+    }
+    if (cardGameFilter === cardGames.POKEMON) {
+      return users.sort((a,b) =>
+      ((a.playerStats.pokemon.totalWins * a.playerStats.pokemon.overallWinRate * 100) < (b.playerStats.pokemon.totalWins * b.playerStats.pokemon.overallWinRate * 100)) ? 1 :
+      (((b.playerStats.pokemon.totalWins * b.playerStats.pokemon.overallWinRate * 100) < (a.playerStats.pokemon.totalWins * a.playerStats.pokemon.overallWinRate * 100)) ? -1 : 0));
+    }
+    if (cardGameFilter === cardGames.YUGIOH) {
+      return users.sort((a,b) =>
+      ((a.playerStats.yugioh.totalWins * a.playerStats.yugioh.overallWinRate * 100) < (b.playerStats.yugioh.totalWins * b.playerStats.yugioh.overallWinRate * 100)) ? 1 :
+      (((b.playerStats.yugioh.totalWins * b.playerStats.yugioh.overallWinRate * 100) < (a.playerStats.yugioh.totalWins * a.playerStats.yugioh.overallWinRate * 100)) ? -1 : 0));
+    }
+  }
+
   render() {
     let cardGameFilter = this.props.cardGameFilter;
     let textSearch = this.props.textSearch;
     const { users } = this.state;
-    const filteredUsers = this.filterUsers(users, textSearch);
-    // Still need to sort displayed users by ranking
+    const filteredUsers = this.sortByRank(this.filterUsers(users, textSearch), cardGameFilter);
 
     return (
       <div>
