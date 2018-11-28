@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import { auth } from '../firebase';
-import '../main.css';
+import { auth } from '../../firebase';
+import '../../main.css';
 import './PasswordForget.css';
 
 /* Main forgot password content display. */

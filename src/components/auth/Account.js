@@ -6,7 +6,7 @@ import PasswordChangeForm from './PasswordChange';
 import { DeleteAccountButton } from './DeleteAccount';
 import withAuthorization from './withAuthorization';
 
-import '../main.css';
+import '../../main.css';
 import './Account.css';
 
 /* Page for user to manage their account.

@@ -4,9 +4,9 @@ import {
   withRouter,
 } from 'react-router-dom';
 
-import { auth, db } from '../firebase';
-import * as routes from '../constants/routes';
-import '../main.css';
+import { auth, db } from '../../firebase';
+import * as routes from '../../constants/routes';
+import '../../main.css';
 import './SignUp.css';
 
 /* Main sign up content display. */

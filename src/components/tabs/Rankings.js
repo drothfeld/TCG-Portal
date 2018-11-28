@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
-import withAuthorization from './withAuthorization';
-import { db } from '../firebase';
-import * as cardGames from '../constants/cardGames';
+import withAuthorization from '../auth/withAuthorization';
+import { db } from '../../firebase';
+import * as cardGames from '../../constants/cardGames';
 import './Rankings.css';
 
 /* Wrapped in higher order component wtih defined authorization for this component. */

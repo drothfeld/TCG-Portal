@@ -1,7 +1,7 @@
 import React from 'react';
 
 import AuthUserContext from './AuthUserContext';
-import { firebase } from '../firebase';
+import { firebase } from '../../firebase';
 
 /* Implementing framework around the higher order component. */
 const withAuthentication = (Component) => {

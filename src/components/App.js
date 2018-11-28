@@ -4,25 +4,25 @@ import {
   Route,
 } from 'react-router-dom';
 
-import Navigation from './Navigation';
-import LandingPage from './Landing';
-import SignUpPage from './SignUp';
-import SignInPage from './SignIn';
-import PasswordForgetPage from './PasswordForget';
-import HomePage from './Home';
-import AccountPage from './Account';
-import AdminPage from './Admin';
-import AddCardGamePage from './AddCardGame';
-import RankingsPage from './Rankings';
-import StatsPage from './Stats';
-import CipherStatsPage from './CipherStats';
-import MagicStatsPage from './MagicStats';
-import PokemonStatsPage from './PokemonStats';
-import YugiohStatsPage from './YugiohStats';
+import Navigation from './nav/Navigation';
+import LandingPage from './nav/Landing';
+import SignUpPage from './auth/SignUp';
+import SignInPage from './auth/SignIn';
+import PasswordForgetPage from './auth/PasswordForget';
+import HomePage from './tabs/Home';
+import AccountPage from './auth/Account';
+import AdminPage from './auth/Admin';
+import AddCardGamePage from './tabs/AddCardGame';
+import RankingsPage from './tabs/Rankings';
+import StatsPage from './tabs/stats/Stats';
+import CipherStatsPage from './tabs/stats/CipherStats';
+import MagicStatsPage from './tabs/stats/MagicStats';
+import PokemonStatsPage from './tabs/stats/PokemonStats';
+import YugiohStatsPage from './tabs/stats/YugiohStats';
 
 import * as routes from '../constants/routes';
 
-import withAuthentication from './withAuthentication';
+import withAuthentication from './auth/withAuthentication';
 
 const App = () =>
   <Router>

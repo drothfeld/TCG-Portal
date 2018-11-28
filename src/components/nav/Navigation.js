@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import AuthUserContext from './AuthUserContext';
-import SignOutButton from './SignOut';
-import * as routes from '../constants/routes';
-import '../main.css';
+import AuthUserContext from '../auth/AuthUserContext';
+import SignOutButton from '../auth/SignOut';
+import * as routes from '../../constants/routes';
+import '../../main.css';
 import './Navigation.css';
 
 /* Determine if user is logged in and assign navigation to show. */

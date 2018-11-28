@@ -5,9 +5,9 @@ import {
 
 import { SignUpLink } from './SignUp';
 import { PasswordForgetLink } from './PasswordForget';
-import { auth } from '../firebase';
-import * as routes from '../constants/routes';
-import '../main.css';
+import { auth } from '../../firebase';
+import * as routes from '../../constants/routes';
+import '../../main.css';
 import './SignIn.css';
 
 /* Main sign in content display. */

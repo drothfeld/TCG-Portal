@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
-import { db } from '../firebase';
-import * as cardGames from '../constants/cardGames';
-import * as feCipherColors from '../constants/feCipherDeckColors';
-import * as routes from '../constants/routes';
-import withAuthorization from './withAuthorization';
-import '../main.css';
+import { db } from '../../firebase';
+import * as cardGames from '../../constants/cardGames';
+import * as feCipherColors from '../../constants/feCipherDeckColors';
+import * as routes from '../../constants/routes';
+import withAuthorization from '../auth/withAuthorization';
+import '../../main.css';
 import './AddCardGame.css';
 
 /* Main add card game content display. */

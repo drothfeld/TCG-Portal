@@ -3,7 +3,7 @@ import {
   withRouter,
 } from 'react-router-dom';
 
-import '../main.css';
+import '../../main.css';
 import './Landing.css';
 
 const LandingPage = () =>

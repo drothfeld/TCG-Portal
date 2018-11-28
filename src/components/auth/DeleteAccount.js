@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import AuthUserContext from './AuthUserContext';
-import { auth, db } from '../firebase';
+import { auth, db } from '../../firebase';
 
 /* Button component to delete a user in the Firebase realtime db. */
 class DeleteAccountButton extends Component {

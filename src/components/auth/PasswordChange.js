@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { auth } from '../firebase';
+import { auth } from '../../firebase';
 
 /* The key value is used as a dynamic key
    to allocate the actual value in the local state object. */
