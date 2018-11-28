@@ -13,7 +13,12 @@ import HomePage from './Home';
 import AccountPage from './Account';
 import AdminPage from './Admin';
 import AddCardGamePage from './AddCardGame';
-import RankingsPage from './Rankings'
+import RankingsPage from './Rankings';
+import StatsPage from './Stats';
+import CipherStatsPage from './CipherStats';
+import MagicStatsPage from './MagicStats';
+import PokemonStatsPage from './PokemonStats';
+import YugiohStatsPage from './YugiohStats';
 
 import * as routes from '../constants/routes';
 
@@ -32,6 +37,11 @@ const App = () =>
       <Route exact path={routes.ADMIN} component={() => <AdminPage />} />
       <Route exact path={routes.ADD_CARD_GAME} component={() => <AddCardGamePage />} />
       <Route exact path={routes.RANKINGS} component={() => <RankingsPage />} />
+      <Route exact path={routes.STATS} component={() => <StatsPage />} />
+      <Route exact path={routes.STATS + routes.CIPHER} component={() => <CipherStatsPage />} />
+      <Route exact path={routes.STATS + routes.MAGIC} component={() => <MagicStatsPage />} />
+      <Route exact path={routes.STATS + routes.POKEMON} component={() => <PokemonStatsPage />} />
+      <Route exact path={routes.STATS + routes.YUGIOH} component={() => <YugiohStatsPage />} />
     </div>
   </Router>
 
