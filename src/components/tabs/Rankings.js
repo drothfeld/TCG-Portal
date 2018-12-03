@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import withAuthorization from '../auth/withAuthorization';
 import { db } from '../../firebase';
 import * as cardGames from '../../constants/cardGames';
+import * as routes from '../../constants/routes';
 import './Rankings.css';
 
 /* Wrapped in higher order component wtih defined authorization for this component. */
@@ -54,6 +56,13 @@ class RankingsPage extends Component {
               <option value='1' disabled>Choose Card Game:</option>
               { Object.keys(cardGames.CARD_GAMES).map((name,index) => <option key={index} value={cardGames.CARD_GAMES[index]}>{cardGames.CARD_GAMES[index]}</option>) }
             </select>
+          </div>
+
+          <div className="rankings-select-container">
+            <div hidden={ cardGameFilter !== cardGames.FE_CIPHER } className="rankings-stat-link"><Link className="stat-link-text" to={(routes.STATS + routes.CIPHER)}>Game Statistics</Link></div>
+            <div hidden={ cardGameFilter !== cardGames.MAGIC } className="rankings-stat-link"><Link className="stat-link-text" to={(routes.STATS + routes.MAGIC)}>Game Statistics</Link></div>
+            <div hidden={ cardGameFilter !== cardGames.POKEMON } className="rankings-stat-link"><Link className="stat-link-text" to={(routes.STATS + routes.POKEMON)}>Game Statistics</Link></div>
+            <div hidden={ cardGameFilter !== cardGames.YUGIOH } className="rankings-stat-link"><Link className="stat-link-text" to={(routes.STATS + routes.YUGIOH)}>Game Statistics</Link></div>
           </div>
 
         </div>

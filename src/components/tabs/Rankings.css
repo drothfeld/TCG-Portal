@@ -30,6 +30,19 @@
   float: left;
 }
 
+.stat-link-text {
+  text-decoration: none;
+  color: black;
+  font-size: 15px;
+}
+
+.rankings-stat-link {
+  background-color: white;
+  padding: 14px;
+  border-radius: 25px;
+  margin-top: 8px;
+}
+
 .rankings-text-search {
   height: 45px;
   font-size: 12px;
