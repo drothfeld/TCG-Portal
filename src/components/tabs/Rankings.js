@@ -25,17 +25,30 @@ class RankingsPage extends Component {
     });
   }
 
+  getCardGameImageLogoPath(cardGameFilter) {
+    let logo_path = "";
+    if (cardGameFilter === cardGames.FE_CIPHER) {
+      return '/assets/images/fireEmblemCipher_logo.png';
+    } else if (cardGameFilter === cardGames.MAGIC) {
+      return '/assets/images/magicTheGathering_logo.png';
+    } else if (cardGameFilter === cardGames.POKEMON) {
+      return '/assets/images/pokemon_logo.png';
+    } else if (cardGameFilter === cardGames.YUGIOH) {
+      return '/assets/images/yugioh_logo.png';
+    }
+  }
+
   render() {
     const { cardGameFilter, textSearch } = this.state;
     let props = {
       cardGameFilter,
       textSearch
     }
+    let img_logo_path = this.getCardGameImageLogoPath(cardGameFilter);
 
     return (
       <div>
-        <div className="rankings-page-title"><h1>USER RANKINGS</h1></div>
-        <hr/>
+        <div className="logo-image-container"><img className="card-game-logo-image" src={window.location.origin + img_logo_path} alt="LOGO_IMG"></img></div>
 
         <div className = "rankings-toolbar">
 
@@ -66,7 +79,6 @@ class RankingsPage extends Component {
           </div>
 
         </div>
-        <h2>{ cardGameFilter }</h2>
         <RankingsUserList { ...props }/>
       </div>
     );
