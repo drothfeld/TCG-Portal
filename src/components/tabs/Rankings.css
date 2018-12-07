@@ -82,26 +82,26 @@
 }
 
 .rankings-user {
-  position: fixed;
+  position: absolute;
   left: 15%;
 }
 
 .rankings-wins {
-  position: fixed;
+  position: absolute;
   left: 35%;
 }
 
 .rankings-losses {
-  position: fixed;
+  position: absolute;
   left: 45%;
 }
 
 .rankings-total {
-  position: fixed;
+  position: absolute;
   left: 60%;
 }
 
 .rankings-winrate {
-  position: fixed;
+  position: absolute;
   left: 80%;
 }

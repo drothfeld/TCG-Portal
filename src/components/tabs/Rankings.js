@@ -26,7 +26,6 @@ class RankingsPage extends Component {
   }
 
   getCardGameImageLogoPath(cardGameFilter) {
-    let logo_path = "";
     if (cardGameFilter === cardGames.FE_CIPHER) {
       return '/assets/images/fireEmblemCipher_logo.png';
     } else if (cardGameFilter === cardGames.MAGIC) {
