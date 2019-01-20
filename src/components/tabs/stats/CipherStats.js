@@ -13,7 +13,7 @@ class CipherStatsPage extends Component {
   render() {
     return (
       <div>
-        <h1>FIRE EMBLEM CIPHER STATS</h1>
+        <div className="logo-image-container"><img className="card-game-logo-image" src='/assets/images/fireEmblemCipher_logo.png' alt="LOGO_IMG"></img></div>
         <CipherGameStatistics/>
       </div>
     );
@@ -25,13 +25,24 @@ class CipherGameStatistics extends Component {
     super(props);
 
     this.state = {
-      games: null
+      games: null,
+      stats: {
+          red: {
+            totalWins: 1,
+            totalLosses: 1,
+            totalGamesPlayed: 1
+          }
+      }
     };
   }
 
   componentDidMount() {
     db.onceGetRecordedGames().then(snapshot =>
       this.setState({ games: snapshot.val() })
+    );
+
+    db.getCIPHERGameStats().then(snapshot =>
+      this.setState({ stats: snapshot.val() })
     );
   }
 
@@ -76,11 +87,29 @@ class CipherGameStatistics extends Component {
   }
 
   render() {
-    const { games } = this.state;
-    this.updateCipherGameStats(games);
+    const { games, stats } = this.state;
+    // Need to add a refresh/sync/update button to call: this.updateCipherGameStats(games);
+    //this.updateCipherGameStats(games);
 
     return (
       <div>
+        <div>
+          <div className = "rankings-row rankings-header"><b>
+            <span className = "rankings-ranking">INSIGNIA</span>
+            <span className = "rankings-wins">WINS</span>
+            <span className = "rankings-losses">LOSSES</span>
+            <span className = "rankings-total">TOTAL GAMES</span>
+            <span className = "rankings-winrate">WINRATE</span></b>
+          </div>
+          <div className = "rankings-row rankings-row-odd">
+            <span className = "rankings-ranking"><b><div className="insignia-image-container-small"><img className="insignia-logo-image-small" src='/assets/images/Red_(Cipher).png' alt="LOGO_IMG"></img></div></b></span>
+            <span className = "rankings-wins">{stats.red.totalWins}</span>
+            <span className = "rankings-losses">{stats.red.totalLosses}</span>
+            <span className = "rankings-total">{stats.red.totalGamesPlayed}</span>
+            <span className = "rankings-winrate">{ (stats.red.totalWins / stats.red.totalGamesPlayed).toFixed(3) * 100 }%</span>
+          </div>
+
+        </div>
       </div>
     )
   }
