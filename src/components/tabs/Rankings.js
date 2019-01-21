@@ -177,7 +177,7 @@ const FireEmblemCipherUserRanks = ({ filteredUsers }) =>
         <span className = "rankings-wins">{ filteredUsers[key].playerStats.fireEmblemCipher.totalWins }</span>
         <span className = "rankings-losses">{ filteredUsers[key].playerStats.fireEmblemCipher.totalLosses }</span>
         <span className = "rankings-total">{ filteredUsers[key].playerStats.fireEmblemCipher.totalGames }</span>
-        <span className = "rankings-winrate">{ filteredUsers[key].playerStats.fireEmblemCipher.overallWinRate.toFixed(3) * 100 }%</span>
+        <span className = "rankings-winrate">{ (filteredUsers[key].playerStats.fireEmblemCipher.overallWinRate * 100).toFixed(3) }%</span>
       </div>
     )}
   </div>
@@ -191,7 +191,7 @@ const MagicTheGatheringUserRanks = ({ filteredUsers }) =>
         <span className = "rankings-wins">{ filteredUsers[key].playerStats.magicTheGathering.totalWins }</span>
         <span className = "rankings-losses">{ filteredUsers[key].playerStats.magicTheGathering.totalLosses }</span>
         <span className = "rankings-total">{ filteredUsers[key].playerStats.magicTheGathering.totalGames }</span>
-        <span className = "rankings-winrate">{ filteredUsers[key].playerStats.magicTheGathering.overallWinRate.toFixed(3) * 100 }%</span>
+        <span className = "rankings-winrate">{ (filteredUsers[key].playerStats.magicTheGathering.overallWinRate * 100).toFixed(3) }%</span>
       </div>
     )}
   </div>
@@ -205,7 +205,7 @@ const PokemonUserRanks = ({ filteredUsers }) =>
         <span className = "rankings-wins">{ filteredUsers[key].playerStats.pokemon.totalWins }</span>
         <span className = "rankings-losses">{ filteredUsers[key].playerStats.pokemon.totalLosses }</span>
         <span className = "rankings-total">{ filteredUsers[key].playerStats.pokemon.totalGames }</span>
-        <span className = "rankings-winrate">{ filteredUsers[key].playerStats.pokemon.overallWinRate.toFixed(3) * 100 }%</span>
+        <span className = "rankings-winrate">{ (filteredUsers[key].playerStats.pokemon.overallWinRate * 100).toFixed(3) }%</span>
       </div>
     )}
   </div>
@@ -219,7 +219,7 @@ const YuGiOhUserRanks = ({ filteredUsers }) =>
         <span className = "rankings-wins">{ filteredUsers[key].playerStats.yugioh.totalWins }</span>
         <span className = "rankings-losses">{ filteredUsers[key].playerStats.yugioh.totalLosses }</span>
         <span className = "rankings-total">{ filteredUsers[key].playerStats.yugioh.totalGames }</span>
-        <span className = "rankings-winrate">{ filteredUsers[key].playerStats.yugioh.overallWinRate.toFixed(3) * 100 }%</span>
+        <span className = "rankings-winrate">{ (filteredUsers[key].playerStats.yugioh.overallWinRate * 100).toFixed(3) }%</span>
       </div>
     )}
   </div>

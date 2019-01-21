@@ -31,6 +31,37 @@ class CipherGameStatistics extends Component {
             totalWins: 1,
             totalLosses: 1,
             totalGamesPlayed: 1
+          },
+          blue: {
+            totalWins: 1,
+            totalLosses: 1,
+            totalGamesPlayed: 1
+          },
+          white: {
+            totalWins: 1,
+            totalLosses: 1,
+            totalGamesPlayed: 1
+          },
+          black: {
+            totalWins: 1,
+            totalLosses: 1,
+            totalGamesPlayed: 1
+          },
+          green: {
+            totalWins: 1,
+            totalLosses: 1,
+            totalGamesPlayed: 1
+          },
+          purple: {
+            totalWins: 1,
+            totalLosses: 1,
+            totalGamesPlayed: 1
+          }
+          ,
+          yellow: {
+            totalWins: 1,
+            totalLosses: 1,
+            totalGamesPlayed: 1
           }
       }
     };
@@ -106,7 +137,49 @@ class CipherGameStatistics extends Component {
             <span className = "rankings-wins">{stats.red.totalWins}</span>
             <span className = "rankings-losses">{stats.red.totalLosses}</span>
             <span className = "rankings-total">{stats.red.totalGamesPlayed}</span>
-            <span className = "rankings-winrate">{ (stats.red.totalWins / stats.red.totalGamesPlayed).toFixed(3) * 100 }%</span>
+            <span className = "rankings-winrate">{ (stats.red.totalWins * 100 / stats.red.totalGamesPlayed).toFixed(3) }%</span>
+          </div>
+          <div className = "rankings-row rankings-row-even">
+            <span className = "rankings-ranking"><b><div className="insignia-image-container-small"><img className="insignia-logo-image-small" src='/assets/images/Blue_(Cipher).png' alt="LOGO_IMG"></img></div></b></span>
+            <span className = "rankings-wins">{stats.blue.totalWins}</span>
+            <span className = "rankings-losses">{stats.blue.totalLosses}</span>
+            <span className = "rankings-total">{stats.blue.totalGamesPlayed}</span>
+            <span className = "rankings-winrate">{ (stats.blue.totalWins * 100 / stats.blue.totalGamesPlayed).toFixed(3) }%</span>
+          </div>
+          <div className = "rankings-row rankings-row-odd">
+            <span className = "rankings-ranking"><b><div className="insignia-image-container-small"><img className="insignia-logo-image-small" src='/assets/images/White_(Cipher).png' alt="LOGO_IMG"></img></div></b></span>
+            <span className = "rankings-wins">{stats.white.totalWins}</span>
+            <span className = "rankings-losses">{stats.white.totalLosses}</span>
+            <span className = "rankings-total">{stats.white.totalGamesPlayed}</span>
+            <span className = "rankings-winrate">{ (stats.white.totalWins * 100 / stats.white.totalGamesPlayed).toFixed(3) }%</span>
+          </div>
+          <div className = "rankings-row rankings-row-even">
+            <span className = "rankings-ranking"><b><div className="insignia-image-container-small"><img className="insignia-logo-image-small" src='/assets/images/Black_(Cipher).png' alt="LOGO_IMG"></img></div></b></span>
+            <span className = "rankings-wins">{stats.black.totalWins}</span>
+            <span className = "rankings-losses">{stats.black.totalLosses}</span>
+            <span className = "rankings-total">{stats.black.totalGamesPlayed}</span>
+            <span className = "rankings-winrate">{ (stats.black.totalWins * 100 / stats.black.totalGamesPlayed).toFixed(3) }%</span>
+          </div>
+          <div className = "rankings-row rankings-row-odd">
+            <span className = "rankings-ranking"><b><div className="insignia-image-container-small"><img className="insignia-logo-image-small" src='/assets/images/Green_(Cipher).png' alt="LOGO_IMG"></img></div></b></span>
+            <span className = "rankings-wins">{stats.green.totalWins}</span>
+            <span className = "rankings-losses">{stats.green.totalLosses}</span>
+            <span className = "rankings-total">{stats.green.totalGamesPlayed}</span>
+            <span className = "rankings-winrate">{ (stats.green.totalWins * 100 / stats.green.totalGamesPlayed).toFixed(3) }%</span>
+          </div>
+          <div className = "rankings-row rankings-row-even">
+            <span className = "rankings-ranking"><b><div className="insignia-image-container-small"><img className="insignia-logo-image-small" src='/assets/images/Purple_(Cipher).png' alt="LOGO_IMG"></img></div></b></span>
+            <span className = "rankings-wins">{stats.purple.totalWins}</span>
+            <span className = "rankings-losses">{stats.purple.totalLosses}</span>
+            <span className = "rankings-total">{stats.purple.totalGamesPlayed}</span>
+            <span className = "rankings-winrate">{ (stats.purple.totalWins * 100 / stats.purple.totalGamesPlayed).toFixed(3) }%</span>
+          </div>
+          <div className = "rankings-row rankings-row-odd">
+            <span className = "rankings-ranking"><b><div className="insignia-image-container-small"><img className="insignia-logo-image-small" src='/assets/images/Yellow_(Cipher).png' alt="LOGO_IMG"></img></div></b></span>
+            <span className = "rankings-wins">{stats.yellow.totalWins}</span>
+            <span className = "rankings-losses">{stats.yellow.totalLosses}</span>
+            <span className = "rankings-total">{stats.yellow.totalGamesPlayed}</span>
+            <span className = "rankings-winrate">{ (stats.yellow.totalWins * 100 / stats.yellow.totalGamesPlayed).toFixed(3) }%</span>
           </div>
 
         </div>
