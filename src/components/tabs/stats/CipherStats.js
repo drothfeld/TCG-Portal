@@ -84,7 +84,7 @@ class CipherGameStatistics extends Component {
     );
   }
 
-  updateCipherGameStats(games) {
+  updateCipherGameStats(games, stats) {
     var totalGamesPlayed = 0;
     // red, blue, white, black, green, purple, yellow, colorless
     var colorSpecificTotalGamesPlayed = [0, 0, 0, 0, 0, 0, 0, 0]
@@ -234,12 +234,11 @@ class CipherGameStatistics extends Component {
     yellowMatchupWinsLosses[5][0], yellowMatchupWinsLosses[5][1], ( (yellowMatchupWinsLosses[5][0] / (yellowMatchupWinsLosses[5][0] + yellowMatchupWinsLosses[5][1]) ) * 100).toFixed(0),
     yellowMatchupWinsLosses[6][0], yellowMatchupWinsLosses[6][1], ( (yellowMatchupWinsLosses[6][0] / (yellowMatchupWinsLosses[6][0] + yellowMatchupWinsLosses[6][1]) ) * 100).toFixed(0),
     yellowMatchupWinsLosses[7][0], yellowMatchupWinsLosses[7][1], ( (yellowMatchupWinsLosses[7][0] / (yellowMatchupWinsLosses[7][0] + yellowMatchupWinsLosses[7][1]) ) * 100).toFixed(0),);
+
   }
 
   render() {
     const { games, stats } = this.state;
-    // Need to add a refresh/sync/update button to call: this.updateCipherGameStats(games);
-    // this.updateCipherGameStats(games);
 
     return (
       <div>
@@ -391,7 +390,7 @@ class CipherGameStatistics extends Component {
         </div>
 
         <br /><br /><br />
-        END OF LINE
+        <button className = "stats-button-update" onClick={this.updateCipherGameStats.bind(this, games, stats)}>GET LATEST</button>
 
       </div>
     )

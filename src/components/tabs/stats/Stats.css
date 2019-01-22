@@ -12,6 +12,13 @@
   border-radius: 20px; */
 }
 
+.stats-button-update {
+  font-size: 25px;
+  width: 25%;
+  float: right;
+  margin-right: 15px;
+}
+
 .insignia-image-container-small {
   display: inline;
 }
