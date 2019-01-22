@@ -242,6 +242,7 @@ class CipherGameStatistics extends Component {
 
     return (
       <div>
+
         <div>
           <div className = "rankings-row rankings-header"><b>
             <span className = "rankings-ranking">INSIGNIA</span>
@@ -299,8 +300,23 @@ class CipherGameStatistics extends Component {
             <span className = "rankings-total">{stats.yellow.totalGamesPlayed}</span>
             <span className = "rankings-winrate">{ (stats.yellow.totalWins * 100 / stats.yellow.totalGamesPlayed).toFixed(3) }%</span>
           </div>
-
         </div>
+
+        <br /><br /><br />
+
+        <div>
+          <div className = "rankings-row rankings-header"><b>
+            <span className = "rankings-ranking">INSIGNIA</span>
+            <span className = "stats-insignia-red"><div className="insignia-image-container-small"><img className="insignia-logo-image-row-header" src='/assets/images/Red_(Cipher).png' alt="LOGO_IMG"></img></div></span>
+            <span className = "stats-insignia-blue"><div className="insignia-image-container-small"><img className="insignia-logo-image-row-header" src='/assets/images/Blue_(Cipher).png' alt="LOGO_IMG"></img></div></span>
+            <span className = "stats-insignia-white"><div className="insignia-image-container-small"><img className="insignia-logo-image-row-header" src='/assets/images/White_(Cipher).png' alt="LOGO_IMG"></img></div></span>
+            <span className = "stats-insignia-black"><div className="insignia-image-container-small"><img className="insignia-logo-image-row-header" src='/assets/images/Black_(Cipher).png' alt="LOGO_IMG"></img></div></span>
+            <span className = "stats-insignia-green"><div className="insignia-image-container-small"><img className="insignia-logo-image-row-header" src='/assets/images/Green_(Cipher).png' alt="LOGO_IMG"></img></div></span>
+            <span className = "stats-insignia-purple"><div className="insignia-image-container-small"><img className="insignia-logo-image-row-header" src='/assets/images/Purple_(Cipher).png' alt="LOGO_IMG"></img></div></span>
+            <span className = "stats-insignia-yellow"><div className="insignia-image-container-small"><img className="insignia-logo-image-row-header" src='/assets/images/Yellow_(Cipher).png' alt="LOGO_IMG"></img></div></span></b>
+          </div>
+        </div>
+
       </div>
     )
   }

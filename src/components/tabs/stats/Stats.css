@@ -6,3 +6,43 @@
   width: 3%;
   margin-left: 2.5%;
 }
+
+.insignia-logo-image-row-header {
+  width: 12%;
+  margin-left: 2.5%;
+}
+
+.stats-insignia-red {
+  position: absolute;
+  left: 25%;
+}
+
+.stats-insignia-blue {
+  position: absolute;
+  left: 35%;
+}
+
+.stats-insignia-white {
+  position: absolute;
+  left: 45%;
+}
+
+.stats-insignia-black {
+  position: absolute;
+  left: 55%;
+}
+
+.stats-insignia-green {
+  position: absolute;
+  left: 65%;
+}
+
+.stats-insignia-purple {
+  position: absolute;
+  left: 75%;
+}
+
+.stats-insignia-yellow {
+  position: absolute;
+  left: 85%;
+}
