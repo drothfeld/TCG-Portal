@@ -1,3 +1,17 @@
+.stats-table-title {
+  font-size: 30px;
+  padding: 10px;
+  padding-left: 35px;
+  background-color: black;
+  color: white;
+  opacity: 0.50;
+  font-weight: bold;
+  letter-spacing: 0.50px;
+  /* Experimental */
+  /* margin-bottom: 5px;
+  border-radius: 20px; */
+}
+
 .insignia-image-container-small {
   display: inline;
 }

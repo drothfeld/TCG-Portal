@@ -14,6 +14,7 @@ class CipherStatsPage extends Component {
     return (
       <div>
         <div className="logo-image-container"><img className="card-game-logo-image" src='/assets/images/fireEmblemCipher_logo.png' alt="LOGO_IMG"></img></div>
+        <br /><br /><br />
         <CipherGameStatistics/>
       </div>
     );
@@ -244,6 +245,7 @@ class CipherGameStatistics extends Component {
       <div>
 
         <div>
+          <div className = "stats-table-title">Deck Color Overall Winrate</div>
           <div className = "rankings-row rankings-header"><b>
             <span className = "rankings-ranking">INSIGNIA</span>
             <span className = "rankings-wins">WINS</span>
@@ -305,6 +307,7 @@ class CipherGameStatistics extends Component {
         <br /><br /><br />
 
         <div>
+          <div className = "stats-table-title">Deck Color Matchup Winrates</div>
           <div className = "rankings-row rankings-header"><b>
             <span className = "rankings-ranking">INSIGNIA</span>
             <span className = "stats-insignia-red"><div className="insignia-image-container-small"><img className="insignia-logo-image-row-header" src='/assets/images/Red_(Cipher).png' alt="LOGO_IMG"></img></div></span>
