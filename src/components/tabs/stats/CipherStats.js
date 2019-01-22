@@ -30,38 +30,44 @@ class CipherGameStatistics extends Component {
           red: {
             totalWins: 1,
             totalLosses: 1,
-            totalGamesPlayed: 1
+            totalGamesPlayed: 1,
+            winsAgainstRed: 0, lossesAgainstRed: 1, winsAgainstBlue: 0, lossesAgainstBlue: 1, winsAgainstWhite: 0, lossesAgainstWhite: 1, winsAgainstBlack: 0, lossesAgainstBlack: 1, winsAgainstGreen: 0, lossesAgainstGreen: 1, winsAgainstPurple: 0, lossesAgainstPurple: 1, winsAgainstYellow: 0, lossesAgainstYellow: 1
           },
           blue: {
             totalWins: 1,
             totalLosses: 1,
-            totalGamesPlayed: 1
+            totalGamesPlayed: 1,
+            winsAgainstRed: 0, lossesAgainstRed: 1, winsAgainstBlue: 0, lossesAgainstBlue: 1, winsAgainstWhite: 0, lossesAgainstWhite: 1, winsAgainstBlack: 0, lossesAgainstBlack: 1, winsAgainstGreen: 0, lossesAgainstGreen: 1, winsAgainstPurple: 0, lossesAgainstPurple: 1, winsAgainstYellow: 0, lossesAgainstYellow: 1
           },
           white: {
             totalWins: 1,
             totalLosses: 1,
-            totalGamesPlayed: 1
+            totalGamesPlayed: 1,
+            winsAgainstRed: 0, lossesAgainstRed: 1, winsAgainstBlue: 0, lossesAgainstBlue: 1, winsAgainstWhite: 0, lossesAgainstWhite: 1, winsAgainstBlack: 0, lossesAgainstBlack: 1, winsAgainstGreen: 0, lossesAgainstGreen: 1, winsAgainstPurple: 0, lossesAgainstPurple: 1, winsAgainstYellow: 0, lossesAgainstYellow: 1
           },
           black: {
             totalWins: 1,
             totalLosses: 1,
-            totalGamesPlayed: 1
+            totalGamesPlayed: 1,
+            winsAgainstRed: 0, lossesAgainstRed: 1, winsAgainstBlue: 0, lossesAgainstBlue: 1, winsAgainstWhite: 0, lossesAgainstWhite: 1, winsAgainstBlack: 0, lossesAgainstBlack: 1, winsAgainstGreen: 0, lossesAgainstGreen: 1, winsAgainstPurple: 0, lossesAgainstPurple: 1, winsAgainstYellow: 0, lossesAgainstYellow: 1
           },
           green: {
             totalWins: 1,
             totalLosses: 1,
-            totalGamesPlayed: 1
+            totalGamesPlayed: 1,
+            winsAgainstRed: 0, lossesAgainstRed: 1, winsAgainstBlue: 0, lossesAgainstBlue: 1, winsAgainstWhite: 0, lossesAgainstWhite: 1, winsAgainstBlack: 0, lossesAgainstBlack: 1, winsAgainstGreen: 0, lossesAgainstGreen: 1, winsAgainstPurple: 0, lossesAgainstPurple: 1, winsAgainstYellow: 0, lossesAgainstYellow: 1
           },
           purple: {
             totalWins: 1,
             totalLosses: 1,
-            totalGamesPlayed: 1
-          }
-          ,
+            totalGamesPlayed: 1,
+            winsAgainstRed: 0, lossesAgainstRed: 1, winsAgainstBlue: 0, lossesAgainstBlue: 1, winsAgainstWhite: 0, lossesAgainstWhite: 1, winsAgainstBlack: 0, lossesAgainstBlack: 1, winsAgainstGreen: 0, lossesAgainstGreen: 1, winsAgainstPurple: 0, lossesAgainstPurple: 1, winsAgainstYellow: 0, lossesAgainstYellow: 1
+          },
           yellow: {
             totalWins: 1,
             totalLosses: 1,
-            totalGamesPlayed: 1
+            totalGamesPlayed: 1,
+            winsAgainstRed: 0, lossesAgainstRed: 1, winsAgainstBlue: 0, lossesAgainstBlue: 1, winsAgainstWhite: 0, lossesAgainstWhite: 1, winsAgainstBlack: 0, lossesAgainstBlack: 1, winsAgainstGreen: 0, lossesAgainstGreen: 1, winsAgainstPurple: 0, lossesAgainstPurple: 1, winsAgainstYellow: 0, lossesAgainstYellow: 1
           }
       }
     };
@@ -120,7 +126,6 @@ class CipherGameStatistics extends Component {
   render() {
     const { games, stats } = this.state;
     // Need to add a refresh/sync/update button to call: this.updateCipherGameStats(games);
-    //this.updateCipherGameStats(games);
 
     return (
       <div>
