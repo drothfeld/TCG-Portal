@@ -88,6 +88,7 @@ class CipherGameStatistics extends Component {
     // red, blue, white, black, green, purple, yellow, colorless
     var colorSpecificTotalGamesPlayed = [0, 0, 0, 0, 0, 0, 0, 0]
     var colorSpecificTotalWinsLosses = [ [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0] ]
+    var redMatchupWinsLosses = [ [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1] ]
 
     for (var key in games) {
       var game = games[key];
@@ -103,12 +104,27 @@ class CipherGameStatistics extends Component {
         if (game.winningColor === "Medallion (Green)") { colorSpecificTotalGamesPlayed[4] ++; colorSpecificTotalWinsLosses[4][0] ++; } if (game.losingColors === "Medallion (Green)") { colorSpecificTotalGamesPlayed[4] ++; colorSpecificTotalWinsLosses[4][1] ++; }
         if (game.winningColor === "Divine Artifacts (Purple)") { colorSpecificTotalGamesPlayed[5] ++; colorSpecificTotalWinsLosses[5][0] ++; } if (game.losingColors === "Divine Artifacts (Purple)") { colorSpecificTotalGamesPlayed[5] ++; colorSpecificTotalWinsLosses[5][1] ++; }
         if (game.winningColor === "Holy War Flag (Yellow)") { colorSpecificTotalGamesPlayed[6] ++; colorSpecificTotalWinsLosses[6][0] ++; } if (game.losingColors === "Holy War Flag (Yellow)") { colorSpecificTotalGamesPlayed[6] ++; colorSpecificTotalWinsLosses[6][1] ++; }
+
+        // Collect red game statistics
+        if (game.winningColor === "Sword of Light (Red)" && game.losingColors === "Mark of Naga (Blue)") { redMatchupWinsLosses[1][0] ++;} if (game.losingColors === "Sword of Light (Red)" && game.winningColor === "Mark of Naga (Blue)") { redMatchupWinsLosses[1][1] ++;}
+        if (game.winningColor === "Sword of Light (Red)" && game.losingColors === "Hoshido (White)") { redMatchupWinsLosses[2][0] ++;} if (game.losingColors === "Sword of Light (Red)" && game.winningColor === "Hoshido (White)") { redMatchupWinsLosses[2][1] ++;}
+        if (game.winningColor === "Sword of Light (Red)" && game.losingColors === "Nohr (Black)") { redMatchupWinsLosses[3][0] ++;} if (game.losingColors === "Sword of Light (Red)" && game.winningColor === "Nohr (Black)") { redMatchupWinsLosses[3][1] ++;}
+        if (game.winningColor === "Sword of Light (Red)" && game.losingColors === "Medallion (Green)") { redMatchupWinsLosses[4][0] ++;} if (game.losingColors === "Sword of Light (Red)" && game.winningColor === "Medallion (Green)") { redMatchupWinsLosses[4][1] ++;}
+        if (game.winningColor === "Sword of Light (Red)" && game.losingColors === "Divine Artifacts (Purple)") { redMatchupWinsLosses[5][0] ++;} if (game.losingColors === "Sword of Light (Red)" && game.winningColor === "Divine Artifacts (Purple)") { redMatchupWinsLosses[5][1] ++;}
+        if (game.winningColor === "Sword of Light (Red)" && game.losingColors === "Holy War Flag (Yellow)") { redMatchupWinsLosses[6][0] ++;} if (game.losingColors === "Sword of Light (Red)" && game.winningColor === "Holy War Flag (Yellow)") { redMatchupWinsLosses[6][1] ++;}
       }
 
     }
     db.updateGeneralCIPHERGameStats(totalGamesPlayed, "NULL", 0, "NULL", 0, 0, 0.50)
     db.updateCIPHERGameStats("red", colorSpecificTotalGamesPlayed[0], colorSpecificTotalWinsLosses[0][0], colorSpecificTotalWinsLosses[0][1], "NULL", 0, "NULL", 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+    redMatchupWinsLosses[0][0], redMatchupWinsLosses[0][1], ( (redMatchupWinsLosses[0][0] / (redMatchupWinsLosses[0][0] + redMatchupWinsLosses[0][1]) ) * 100).toFixed(0),
+    redMatchupWinsLosses[1][0], redMatchupWinsLosses[1][1], ( (redMatchupWinsLosses[1][0] / (redMatchupWinsLosses[1][0] + redMatchupWinsLosses[1][1]) ) * 100).toFixed(0),
+    redMatchupWinsLosses[2][0], redMatchupWinsLosses[2][1], ( (redMatchupWinsLosses[2][0] / (redMatchupWinsLosses[2][0] + redMatchupWinsLosses[2][1]) ) * 100).toFixed(0),
+    redMatchupWinsLosses[3][0], redMatchupWinsLosses[3][1], ( (redMatchupWinsLosses[3][0] / (redMatchupWinsLosses[3][0] + redMatchupWinsLosses[3][1]) ) * 100).toFixed(0),
+    redMatchupWinsLosses[4][0], redMatchupWinsLosses[4][1], ( (redMatchupWinsLosses[4][0] / (redMatchupWinsLosses[4][0] + redMatchupWinsLosses[4][1]) ) * 100).toFixed(0),
+    redMatchupWinsLosses[5][0], redMatchupWinsLosses[5][1], ( (redMatchupWinsLosses[5][0] / (redMatchupWinsLosses[5][0] + redMatchupWinsLosses[5][1]) ) * 100).toFixed(0),
+    redMatchupWinsLosses[6][0], redMatchupWinsLosses[6][1], ( (redMatchupWinsLosses[6][0] / (redMatchupWinsLosses[6][0] + redMatchupWinsLosses[6][1]) ) * 100).toFixed(0),
+    redMatchupWinsLosses[7][0], redMatchupWinsLosses[7][1], ( (redMatchupWinsLosses[7][0] / (redMatchupWinsLosses[7][0] + redMatchupWinsLosses[7][1]) ) * 100).toFixed(0),);
     db.updateCIPHERGameStats("blue", colorSpecificTotalGamesPlayed[1], colorSpecificTotalWinsLosses[1][0], colorSpecificTotalWinsLosses[1][1], "NULL", 0, "NULL", 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     db.updateCIPHERGameStats("white", colorSpecificTotalGamesPlayed[2], colorSpecificTotalWinsLosses[2][0], colorSpecificTotalWinsLosses[2][1], "NULL", 0, "NULL", 0, 0, 0,
@@ -126,6 +142,7 @@ class CipherGameStatistics extends Component {
   render() {
     const { games, stats } = this.state;
     // Need to add a refresh/sync/update button to call: this.updateCipherGameStats(games);
+    // this.updateCipherGameStats(games);
 
     return (
       <div>
