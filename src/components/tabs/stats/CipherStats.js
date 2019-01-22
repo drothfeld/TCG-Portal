@@ -315,7 +315,80 @@ class CipherGameStatistics extends Component {
             <span className = "stats-insignia-purple"><div className="insignia-image-container-small"><img className="insignia-logo-image-row-header" src='/assets/images/Purple_(Cipher).png' alt="LOGO_IMG"></img></div></span>
             <span className = "stats-insignia-yellow"><div className="insignia-image-container-small"><img className="insignia-logo-image-row-header" src='/assets/images/Yellow_(Cipher).png' alt="LOGO_IMG"></img></div></span></b>
           </div>
+          <div className = "rankings-row rankings-row-odd">
+            <span className = "rankings-ranking"><b><div className="insignia-image-container-small"><img className="insignia-logo-image-small" src='/assets/images/Red_(Cipher).png' alt="LOGO_IMG"></img></div></b></span>
+            <span hidden = {stats.red.winRateAgainstRed === "0"} className = "stats-insignia-red">{stats.red.winRateAgainstRed}%</span>
+            <span hidden = {stats.red.winRateAgainstBlue === "0"} className = "stats-insignia-blue">{stats.red.winRateAgainstBlue}%</span>
+            <span hidden = {stats.red.winRateAgainstWhite === "0"} className = "stats-insignia-white">{stats.red.winRateAgainstWhite}%</span>
+            <span hidden = {stats.red.winRateAgainstBlack === "0"} className = "stats-insignia-black">{stats.red.winRateAgainstBlack}%</span>
+            <span hidden = {stats.red.winRateAgainstGreen === "0"} className = "stats-insignia-green">{stats.red.winRateAgainstGreen}%</span>
+            <span hidden = {stats.red.winRateAgainstPurple === "0"} className = "stats-insignia-purple">{stats.red.winRateAgainstPurple}%</span>
+            <span hidden = {stats.red.winRateAgainstYellow === "0"} className = "stats-insignia-yellow">{stats.red.winRateAgainstYellow}%</span>
+          </div>
+          <div className = "rankings-row rankings-row-even">
+            <span className = "rankings-ranking"><b><div className="insignia-image-container-small"><img className="insignia-logo-image-small" src='/assets/images/Blue_(Cipher).png' alt="LOGO_IMG"></img></div></b></span>
+            <span hidden = {stats.blue.winRateAgainstRed === "0"} className = "stats-insignia-red">{stats.blue.winRateAgainstRed}%</span>
+            <span hidden = {stats.blue.winRateAgainstBlue === "0"} className = "stats-insignia-blue">{stats.blue.winRateAgainstBlue}%</span>
+            <span hidden = {stats.blue.winRateAgainstWhite === "0"} className = "stats-insignia-white">{stats.blue.winRateAgainstWhite}%</span>
+            <span hidden = {stats.blue.winRateAgainstBlack === "0"} className = "stats-insignia-black">{stats.blue.winRateAgainstBlack}%</span>
+            <span hidden = {stats.blue.winRateAgainstGreen === "0"} className = "stats-insignia-green">{stats.blue.winRateAgainstGreen}%</span>
+            <span hidden = {stats.blue.winRateAgainstPurple === "0"} className = "stats-insignia-purple">{stats.blue.winRateAgainstPurple}%</span>
+            <span hidden = {stats.blue.winRateAgainstYellow === "0"} className = "stats-insignia-yellow">{stats.blue.winRateAgainstYellow}%</span>
+          </div>
+          <div className = "rankings-row rankings-row-odd">
+            <span className = "rankings-ranking"><b><div className="insignia-image-container-small"><img className="insignia-logo-image-small" src='/assets/images/White_(Cipher).png' alt="LOGO_IMG"></img></div></b></span>
+            <span hidden = {stats.white.winRateAgainstRed === "0"} className = "stats-insignia-red">{stats.white.winRateAgainstRed}%</span>
+            <span hidden = {stats.white.winRateAgainstBlue === "0"} className = "stats-insignia-blue">{stats.white.winRateAgainstBlue}%</span>
+            <span hidden = {stats.white.winRateAgainstWhite === "0"} className = "stats-insignia-white">{stats.white.winRateAgainstWhite}%</span>
+            <span hidden = {stats.white.winRateAgainstBlack === "0"} className = "stats-insignia-black">{stats.white.winRateAgainstBlack}%</span>
+            <span hidden = {stats.white.winRateAgainstGreen === "0"} className = "stats-insignia-green">{stats.white.winRateAgainstGreen}%</span>
+            <span hidden = {stats.white.winRateAgainstPurple === "0"} className = "stats-insignia-purple">{stats.white.winRateAgainstPurple}%</span>
+            <span hidden = {stats.white.winRateAgainstYellow === "0"} className = "stats-insignia-yellow">{stats.white.winRateAgainstYellow}%</span>
+          </div>
+          <div className = "rankings-row rankings-row-even">
+            <span className = "rankings-ranking"><b><div className="insignia-image-container-small"><img className="insignia-logo-image-small" src='/assets/images/Black_(Cipher).png' alt="LOGO_IMG"></img></div></b></span>
+            <span hidden = {stats.black.winRateAgainstRed === "0"} className = "stats-insignia-red">{stats.black.winRateAgainstRed}%</span>
+            <span hidden = {stats.black.winRateAgainstBlue === "0"} className = "stats-insignia-blue">{stats.black.winRateAgainstBlue}%</span>
+            <span hidden = {stats.black.winRateAgainstWhite === "0"} className = "stats-insignia-white">{stats.black.winRateAgainstWhite}%</span>
+            <span hidden = {stats.black.winRateAgainstBlack === "0"} className = "stats-insignia-black">{stats.black.winRateAgainstBlack}%</span>
+            <span hidden = {stats.black.winRateAgainstGreen === "0"} className = "stats-insignia-green">{stats.black.winRateAgainstGreen}%</span>
+            <span hidden = {stats.black.winRateAgainstPurple === "0"} className = "stats-insignia-purple">{stats.black.winRateAgainstPurple}%</span>
+            <span hidden = {stats.black.winRateAgainstYellow === "0"} className = "stats-insignia-yellow">{stats.black.winRateAgainstYellow}%</span>
+          </div>
+          <div className = "rankings-row rankings-row-odd">
+            <span className = "rankings-ranking"><b><div className="insignia-image-container-small"><img className="insignia-logo-image-small" src='/assets/images/Green_(Cipher).png' alt="LOGO_IMG"></img></div></b></span>
+            <span hidden = {stats.green.winRateAgainstRed === "0"} className = "stats-insignia-red">{stats.green.winRateAgainstRed}%</span>
+            <span hidden = {stats.green.winRateAgainstBlue === "0"} className = "stats-insignia-blue">{stats.green.winRateAgainstBlue}%</span>
+            <span hidden = {stats.green.winRateAgainstWhite === "0"} className = "stats-insignia-white">{stats.green.winRateAgainstWhite}%</span>
+            <span hidden = {stats.green.winRateAgainstBlack === "0"} className = "stats-insignia-black">{stats.green.winRateAgainstBlack}%</span>
+            <span hidden = {stats.green.winRateAgainstGreen === "0"} className = "stats-insignia-green">{stats.green.winRateAgainstGreen}%</span>
+            <span hidden = {stats.green.winRateAgainstPurple === "0"} className = "stats-insignia-purple">{stats.green.winRateAgainstPurple}%</span>
+            <span hidden = {stats.green.winRateAgainstYellow === "0"} className = "stats-insignia-yellow">{stats.green.winRateAgainstYellow}%</span>
+          </div>
+          <div className = "rankings-row rankings-row-even">
+            <span className = "rankings-ranking"><b><div className="insignia-image-container-small"><img className="insignia-logo-image-small" src='/assets/images/Purple_(Cipher).png' alt="LOGO_IMG"></img></div></b></span>
+            <span hidden = {stats.purple.winRateAgainstRed === "0"} className = "stats-insignia-red">{stats.purple.winRateAgainstRed}%</span>
+            <span hidden = {stats.purple.winRateAgainstBlue === "0"} className = "stats-insignia-blue">{stats.purple.winRateAgainstBlue}%</span>
+            <span hidden = {stats.purple.winRateAgainstWhite === "0"} className = "stats-insignia-white">{stats.purple.winRateAgainstWhite}%</span>
+            <span hidden = {stats.purple.winRateAgainstBlack === "0"} className = "stats-insignia-black">{stats.purple.winRateAgainstBlack}%</span>
+            <span hidden = {stats.purple.winRateAgainstGreen === "0"} className = "stats-insignia-green">{stats.purple.winRateAgainstGreen}%</span>
+            <span hidden = {stats.purple.winRateAgainstPurple === "0"} className = "stats-insignia-purple">{stats.purple.winRateAgainstPurple}%</span>
+            <span hidden = {stats.purple.winRateAgainstYellow === "0"} className = "stats-insignia-yellow">{stats.purple.winRateAgainstYellow}%</span>
+          </div>
+          <div className = "rankings-row rankings-row-even">
+            <span className = "rankings-ranking"><b><div className="insignia-image-container-small"><img className="insignia-logo-image-small" src='/assets/images/Yellow_(Cipher).png' alt="LOGO_IMG"></img></div></b></span>
+            <span hidden = {stats.yellow.winRateAgainstRed === "0"} className = "stats-insignia-red">{stats.yellow.winRateAgainstRed}%</span>
+            <span hidden = {stats.yellow.winRateAgainstBlue === "0"} className = "stats-insignia-blue">{stats.yellow.winRateAgainstBlue}%</span>
+            <span hidden = {stats.yellow.winRateAgainstWhite === "0"} className = "stats-insignia-white">{stats.yellow.winRateAgainstWhite}%</span>
+            <span hidden = {stats.yellow.winRateAgainstBlack === "0"} className = "stats-insignia-black">{stats.yellow.winRateAgainstBlack}%</span>
+            <span hidden = {stats.yellow.winRateAgainstGreen === "0"} className = "stats-insignia-green">{stats.yellow.winRateAgainstGreen}%</span>
+            <span hidden = {stats.yellow.winRateAgainstPurple === "0"} className = "stats-insignia-purple">{stats.yellow.winRateAgainstPurple}%</span>
+            <span hidden = {stats.yellow.winRateAgainstYellow === "0"} className = "stats-insignia-yellow">{stats.yellow.winRateAgainstYellow}%</span>
+          </div>
         </div>
+
+        <br /><br /><br />
+        END OF LINE
 
       </div>
     )
