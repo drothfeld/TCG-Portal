@@ -85,6 +85,8 @@ class CipherGameStatistics extends Component {
   }
 
   updateCipherGameStats(games, stats) {
+    var mostPopularDeck = { name: "", playCount: 0 }
+    var mostVictoriousDeck = { name: "", wins: 0, losses: 0, winRate: 0, winLossDiff: 0 }
     var totalGamesPlayed = 0;
     // red, blue, white, black, green, purple, yellow, colorless
     var colorSpecificTotalGamesPlayed = [0, 0, 0, 0, 0, 0, 0, 0]
@@ -97,6 +99,45 @@ class CipherGameStatistics extends Component {
     var purpleMatchupWinsLosses = [ [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1] ]
     var yellowMatchupWinsLosses = [ [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1] ]
 
+    // Find the most popular and victorious decks played
+    for (var k in games) {
+      var g = games[k];
+      if (g.cardGame === cardGames.FE_CIPHER) {
+        var popularDeckName = g.winningDeckOrCharacterName;
+        var popularPlayCount = 0;
+
+        var victoriousDeckName = g.winningDeckOrCharacterName;
+        var victoriousDeckWins = 0;
+        var victoriousDeckLosses = 0;
+        var victoriousDeckWinLossDiff = 0;
+
+        for (var k2 in games) {
+          var g2 = games[k2];
+          if (g2.cardGame === cardGames.FE_CIPHER) {
+            if (g2.winningDeckOrCharacterName === popularDeckName) { popularPlayCount++; }
+            if (g2.losingDecksOrCharacterNames === popularDeckName) { popularPlayCount++; }
+
+            if (g2.winningDeckOrCharacterName === victoriousDeckName) { victoriousDeckWins++; }
+            if (g2.losingDecksOrCharacterNames === victoriousDeckName) { victoriousDeckLosses++; }
+          }
+        }
+        victoriousDeckWinLossDiff = victoriousDeckWins - victoriousDeckLosses;
+
+        if (popularPlayCount > mostPopularDeck.playCount) {
+          mostPopularDeck.name = popularDeckName;
+          mostPopularDeck.playCount = popularPlayCount;
+        }
+        if (victoriousDeckWinLossDiff > mostVictoriousDeck.winLossDiff) {
+          mostVictoriousDeck.name = victoriousDeckName;
+          mostVictoriousDeck.wins = victoriousDeckWins;
+          mostVictoriousDeck.losses = victoriousDeckLosses;
+          mostVictoriousDeck.winRate = (victoriousDeckWins * 100 / (victoriousDeckLosses + victoriousDeckWins)).toFixed(3);
+          mostVictoriousDeck.winLossDiff = victoriousDeckWinLossDiff;
+        }
+      }
+    }
+
+    // Find deck color statistics
     for (var key in games) {
       var game = games[key];
       if (game.cardGame === cardGames.FE_CIPHER) {
@@ -170,7 +211,7 @@ class CipherGameStatistics extends Component {
       }
 
     }
-    db.updateGeneralCIPHERGameStats(totalGamesPlayed, "NULL", 0, "NULL", 0, 0, 0.50)
+    db.updateGeneralCIPHERGameStats(totalGamesPlayed, mostPopularDeck.name, mostPopularDeck.playCount, mostVictoriousDeck.name, mostVictoriousDeck.wins, mostVictoriousDeck.losses, mostVictoriousDeck.winRate)
     db.updateCIPHERGameStats("red", colorSpecificTotalGamesPlayed[0], colorSpecificTotalWinsLosses[0][0], colorSpecificTotalWinsLosses[0][1], "NULL", 0, "NULL", 0, 0, 0,
     redMatchupWinsLosses[0][0], redMatchupWinsLosses[0][1], ( (redMatchupWinsLosses[0][0] / (redMatchupWinsLosses[0][0] + redMatchupWinsLosses[0][1]) ) * 100).toFixed(0),
     redMatchupWinsLosses[1][0], redMatchupWinsLosses[1][1], ( (redMatchupWinsLosses[1][0] / (redMatchupWinsLosses[1][0] + redMatchupWinsLosses[1][1]) ) * 100).toFixed(0),
@@ -234,7 +275,6 @@ class CipherGameStatistics extends Component {
     yellowMatchupWinsLosses[5][0], yellowMatchupWinsLosses[5][1], ( (yellowMatchupWinsLosses[5][0] / (yellowMatchupWinsLosses[5][0] + yellowMatchupWinsLosses[5][1]) ) * 100).toFixed(0),
     yellowMatchupWinsLosses[6][0], yellowMatchupWinsLosses[6][1], ( (yellowMatchupWinsLosses[6][0] / (yellowMatchupWinsLosses[6][0] + yellowMatchupWinsLosses[6][1]) ) * 100).toFixed(0),
     yellowMatchupWinsLosses[7][0], yellowMatchupWinsLosses[7][1], ( (yellowMatchupWinsLosses[7][0] / (yellowMatchupWinsLosses[7][0] + yellowMatchupWinsLosses[7][1]) ) * 100).toFixed(0),);
-
   }
 
   render() {
@@ -244,7 +284,7 @@ class CipherGameStatistics extends Component {
       <div>
 
         <div>
-          <div className = "stats-table-title">Deck Color Overall Winrate</div>
+          <div className = "stats-table-title">Deck Color Overall Winrates</div>
           <div className = "rankings-row rankings-header"><b>
             <span className = "rankings-ranking">INSIGNIA</span>
             <span className = "rankings-wins">WINS</span>
