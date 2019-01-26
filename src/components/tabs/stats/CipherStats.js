@@ -283,6 +283,39 @@ class CipherGameStatistics extends Component {
     return (
       <div>
 
+      <div>
+        <div className = "stats-table-title">Most Victorious Deck</div>
+        <div className = "rankings-row rankings-header"><b>
+          <span className = "rankings-ranking">DECK</span>
+          <span className = "rankings-wins">WINS</span>
+          <span className = "rankings-losses">LOSSES</span>
+          <span className = "rankings-total">TOTAL GAMES</span>
+          <span className = "rankings-winrate">WINRATE</span></b>
+        </div>
+        <div className = "rankings-row rankings-row-even">
+          <span className = "rankings-ranking"><b>{stats.mostVictoriousDeckName}</b></span>
+          <span className = "rankings-wins">{stats.mostVictoriousDeckWinCount}</span>
+          <span className = "rankings-losses">{stats.mostVictoriousDeckLossCount}</span>
+          <span className = "rankings-total">{ String(stats.mostVictoriousDeckWinCount + stats.mostVictoriousDeckLossCount) }</span>
+          <span className = "rankings-winrate">{ stats.mostVictoriousDeckWinRate }%</span>
+        </div>
+      </div>
+
+      <br /><br /><br />
+        <div>
+          <div className = "stats-table-title">Most Popular Deck</div>
+          <div className = "rankings-row rankings-header"><b>
+            <span className = "rankings-ranking">DECK</span>
+            <span className = "rankings-total">TOTAL GAMES</span></b>
+          </div>
+          <div className = "rankings-row rankings-row-even">
+            <span className = "rankings-ranking"><b>{stats.mostPopularDeckName}</b></span>
+            <span className = "rankings-total">{stats.mostPopularDeckGameCount}</span>
+          </div>
+        </div>
+
+        <br /><br /><br />
+
         <div>
           <div className = "stats-table-title">Deck Color Overall Winrates</div>
           <div className = "rankings-row rankings-header"><b>
