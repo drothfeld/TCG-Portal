@@ -5,6 +5,12 @@ import { db } from '../../../firebase';
 import * as cardGames from '../../../constants/cardGames';
 import './Stats.css';
 
+/* The key value is used as a dynamic key
+   to allocate the actual value in the local state object. */
+const byPropKey = (propertyName, value) => () => ({
+  [propertyName]: value,
+});
+
 class CipherStatsPage extends Component {
   // constructor(props) {
   //   super(props);
@@ -70,8 +76,16 @@ class CipherGameStatistics extends Component {
             totalGamesPlayed: 1,
             winsAgainstRed: 0, lossesAgainstRed: 1, winsAgainstBlue: 0, lossesAgainstBlue: 1, winsAgainstWhite: 0, lossesAgainstWhite: 1, winsAgainstBlack: 0, lossesAgainstBlack: 1, winsAgainstGreen: 0, lossesAgainstGreen: 1, winsAgainstPurple: 0, lossesAgainstPurple: 1, winsAgainstYellow: 0, lossesAgainstYellow: 1
           }
-      }
+      },
+      textSearch: ""
     };
+  }
+
+  /* Handler for inital field validation when onBlur occurs */
+  handleBlur = (field) => (event) => {
+    this.setState({
+      touched: { ...this.state.touched, [field]: true },
+    });
   }
 
   componentDidMount() {
@@ -277,31 +291,78 @@ class CipherGameStatistics extends Component {
     yellowMatchupWinsLosses[7][0], yellowMatchupWinsLosses[7][1], ( (yellowMatchupWinsLosses[7][0] / (yellowMatchupWinsLosses[7][0] + yellowMatchupWinsLosses[7][1]) ) * 100).toFixed(0),);
   }
 
+  getSearchedDeck(games, enteredText) {
+    var searchedDeck = { name: "???", wins: 0, losses: 0, totalGames: 0, winRate: 0 };
+    if (enteredText === "") { return searchedDeck; } else { searchedDeck.name = enteredText; }
+
+    for (var k in games) {
+      var g = games[k];
+      if (g.cardGame === cardGames.FE_CIPHER) {
+        if (g.winningDeckOrCharacterName === enteredText) { searchedDeck.wins ++; searchedDeck.totalGames ++; }
+        if (g.losingDecksOrCharacterNames === enteredText) { searchedDeck.losses ++; searchedDeck.totalGames ++; }
+      }
+    }
+    if (searchedDeck.totalGames === 0) { return searchedDeck; }
+    searchedDeck.winRate = (searchedDeck.wins * 100 / searchedDeck.totalGames).toFixed(3);
+
+    return searchedDeck;
+  }
+
   render() {
-    const { games, stats } = this.state;
+    const { games, stats, textSearch } = this.state;
+    var searchedDeckObject = this.getSearchedDeck(games, textSearch);
 
     return (
       <div>
 
-      <div>
-        <div className = "stats-table-title">Most Victorious Deck</div>
-        <div className = "rankings-row rankings-header"><b>
-          <span className = "rankings-ranking">DECK</span>
-          <span className = "rankings-wins">WINS</span>
-          <span className = "rankings-losses">LOSSES</span>
-          <span className = "rankings-total">TOTAL GAMES</span>
-          <span className = "rankings-winrate">WINRATE</span></b>
+        <div>
+          <div className = "stats-table-title">Search by Deck Name</div>
+          <div className = "rankings-row rankings-header"><b>
+            <input className = "rankings-text-search"
+              style={{ backgroundColor: 'white'}}
+              value = { textSearch }
+              onChange = { event => this.setState(byPropKey('textSearch', event.target.value))}
+              onBlur = { this.handleBlur('textSearch') }
+              type = "text"
+              placeholder = "Search for Deck:"
+            />
+            <span className = "rankings-ranking">DECK</span>
+            <span className = "rankings-wins">WINS</span>
+            <span className = "rankings-losses">LOSSES</span>
+            <span className = "rankings-total">TOTAL GAMES</span>
+            <span className = "rankings-winrate">WINRATE</span></b>
+          </div>
+          <div className = "rankings-row rankings-row-even">
+            <span className = "rankings-ranking"><b>{searchedDeckObject.name}</b></span>
+            <span className = "rankings-wins">{searchedDeckObject.wins}</span>
+            <span className = "rankings-losses">{searchedDeckObject.losses}</span>
+            <span className = "rankings-total">{searchedDeckObject.totalGames}</span>
+            <span className = "rankings-winrate">{searchedDeckObject.winRate}%</span>
+          </div>
         </div>
-        <div className = "rankings-row rankings-row-even">
-          <span className = "rankings-ranking"><b>{stats.mostVictoriousDeckName}</b></span>
-          <span className = "rankings-wins">{stats.mostVictoriousDeckWinCount}</span>
-          <span className = "rankings-losses">{stats.mostVictoriousDeckLossCount}</span>
-          <span className = "rankings-total">{ String(stats.mostVictoriousDeckWinCount + stats.mostVictoriousDeckLossCount) }</span>
-          <span className = "rankings-winrate">{ stats.mostVictoriousDeckWinRate }%</span>
-        </div>
-      </div>
 
-      <br /><br /><br />
+        <br /><br /><br />
+
+        <div>
+          <div className = "stats-table-title">Most Victorious Deck</div>
+          <div className = "rankings-row rankings-header"><b>
+            <span className = "rankings-ranking">DECK</span>
+            <span className = "rankings-wins">WINS</span>
+            <span className = "rankings-losses">LOSSES</span>
+            <span className = "rankings-total">TOTAL GAMES</span>
+            <span className = "rankings-winrate">WINRATE</span></b>
+          </div>
+          <div className = "rankings-row rankings-row-even">
+            <span className = "rankings-ranking"><b>{stats.mostVictoriousDeckName}</b></span>
+            <span className = "rankings-wins">{stats.mostVictoriousDeckWinCount}</span>
+            <span className = "rankings-losses">{stats.mostVictoriousDeckLossCount}</span>
+            <span className = "rankings-total">{ String(stats.mostVictoriousDeckWinCount + stats.mostVictoriousDeckLossCount) }</span>
+            <span className = "rankings-winrate">{ stats.mostVictoriousDeckWinRate }%</span>
+          </div>
+        </div>
+
+        <br /><br /><br />
+
         <div>
           <div className = "stats-table-title">Most Popular Deck</div>
           <div className = "rankings-row rankings-header"><b>
