@@ -99,8 +99,8 @@ class CipherGameStatistics extends Component {
   }
 
   updateCipherGameStats(games, stats) {
-    var mostPopularDeck = { name: "", playCount: 0 }
-    var mostVictoriousDeck = { name: "", wins: 0, losses: 0, winRate: 0, winLossDiff: 0 }
+    var mostPopularDeck = { name: "", playCount: 0, insignia: "" }
+    var mostVictoriousDeck = { name: "", wins: 0, losses: 0, winRate: 0, winLossDiff: 0, insignia: "" }
     var totalGamesPlayed = 0;
     // red, blue, white, black, green, purple, yellow, colorless
     var colorSpecificTotalGamesPlayed = [0, 0, 0, 0, 0, 0, 0, 0]
@@ -119,11 +119,13 @@ class CipherGameStatistics extends Component {
       if (g.cardGame === cardGames.FE_CIPHER) {
         var popularDeckName = g.winningDeckOrCharacterName;
         var popularPlayCount = 0;
+        var popularInsignia = g.winningColor;
 
         var victoriousDeckName = g.winningDeckOrCharacterName;
         var victoriousDeckWins = 0;
         var victoriousDeckLosses = 0;
         var victoriousDeckWinLossDiff = 0;
+        var victoriousInsignia = g.winningColor;
 
         for (var k2 in games) {
           var g2 = games[k2];
@@ -140,6 +142,7 @@ class CipherGameStatistics extends Component {
         if (popularPlayCount > mostPopularDeck.playCount) {
           mostPopularDeck.name = popularDeckName;
           mostPopularDeck.playCount = popularPlayCount;
+          mostPopularDeck.insignia = this.getInsigniaImageFileName(popularInsignia);
         }
         if (victoriousDeckWinLossDiff > mostVictoriousDeck.winLossDiff) {
           mostVictoriousDeck.name = victoriousDeckName;
@@ -147,6 +150,7 @@ class CipherGameStatistics extends Component {
           mostVictoriousDeck.losses = victoriousDeckLosses;
           mostVictoriousDeck.winRate = (victoriousDeckWins * 100 / (victoriousDeckLosses + victoriousDeckWins)).toFixed(3);
           mostVictoriousDeck.winLossDiff = victoriousDeckWinLossDiff;
+          mostVictoriousDeck.insignia = this.getInsigniaImageFileName(victoriousInsignia);
         }
       }
     }
@@ -291,15 +295,28 @@ class CipherGameStatistics extends Component {
     yellowMatchupWinsLosses[7][0], yellowMatchupWinsLosses[7][1], ( (yellowMatchupWinsLosses[7][0] / (yellowMatchupWinsLosses[7][0] + yellowMatchupWinsLosses[7][1]) ) * 100).toFixed(0),);
   }
 
+  getInsigniaImageFileName(insigniaString) {
+    switch(insigniaString) {
+      case "Sword of Light (Red)": return "/assets/images/Red_(Cipher).png";
+      case "Mark of Naga (Blue)": return "/assets/images/Blue_(Cipher).png";
+      case "Hoshido (White)": return "/assets/images/White_(Cipher).png";
+      case "Nohr (Black)": return "/assets/images/Black_(Cipher).png";
+      case "Medallion (Green)": return "/assets/images/Green_(Cipher).png";
+      case "Divine Artifacts (Purple)": return "/assets/images/Purple_(Cipher).png";
+      case "Holy War Flag (Yellow)": return "/assets/images/Yellow_(Cipher).png";
+      default: return insigniaString;
+    }
+  }
+
   getSearchedDeck(games, enteredText) {
-    var searchedDeck = { name: "???", wins: 0, losses: 0, totalGames: 0, winRate: 0 };
+    var searchedDeck = { name: "???", wins: 0, losses: 0, totalGames: 0, winRate: 0, insignia: "" };
     if (enteredText === "") { return searchedDeck; } else { searchedDeck.name = enteredText; }
 
     for (var k in games) {
       var g = games[k];
       if (g.cardGame === cardGames.FE_CIPHER) {
-        if (g.winningDeckOrCharacterName === enteredText) { searchedDeck.wins ++; searchedDeck.totalGames ++; }
-        if (g.losingDecksOrCharacterNames === enteredText) { searchedDeck.losses ++; searchedDeck.totalGames ++; }
+        if (g.winningDeckOrCharacterName === enteredText) { searchedDeck.wins ++; searchedDeck.totalGames ++; searchedDeck.insignia = this.getInsigniaImageFileName(g.winningColor); }
+        if (g.losingDecksOrCharacterNames === enteredText) { searchedDeck.losses ++; searchedDeck.totalGames ++; searchedDeck.insignia = this.getInsigniaImageFileName(g.losingColors); }
       }
     }
     if (searchedDeck.totalGames === 0) { return searchedDeck; }
@@ -334,6 +351,7 @@ class CipherGameStatistics extends Component {
           </div>
           <div className = "rankings-row rankings-row-even">
             <span className = "rankings-ranking"><b>{searchedDeckObject.name}</b></span>
+            <div hidden = {searchedDeckObject.totalGames !== 0} className="insignia-image-container-small"><img className="insignia-logo-image-tiny" src={searchedDeckObject.insignia} alt=""></img></div>
             <span className = "rankings-wins">{searchedDeckObject.wins}</span>
             <span className = "rankings-losses">{searchedDeckObject.losses}</span>
             <span className = "rankings-total">{searchedDeckObject.totalGames}</span>
