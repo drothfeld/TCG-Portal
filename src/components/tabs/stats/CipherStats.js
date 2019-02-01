@@ -99,7 +99,7 @@ class CipherGameStatistics extends Component {
   }
 
   updateCipherGameStats(games, stats) {
-    var mostPopularDeck = { name: "", playCount: 0, insignia: "" }
+    var mostPopularDeck = { name: "", wins: 0, losses: 0, winRate: 0, playCount: 0, insignia: "" }
     var mostVictoriousDeck = { name: "", wins: 0, losses: 0, winRate: 0, winLossDiff: 0, insignia: "" }
     var totalGamesPlayed = 0;
     // red, blue, white, black, green, purple, yellow, colorless
@@ -118,6 +118,8 @@ class CipherGameStatistics extends Component {
       var g = games[k];
       if (g.cardGame === cardGames.FE_CIPHER) {
         var popularDeckName = g.winningDeckOrCharacterName;
+        var popularDeckWins = 0;
+        var popularDeckLosses = 0;
         var popularPlayCount = 0;
         var popularInsignia = g.winningColor;
 
@@ -130,8 +132,8 @@ class CipherGameStatistics extends Component {
         for (var k2 in games) {
           var g2 = games[k2];
           if (g2.cardGame === cardGames.FE_CIPHER) {
-            if (g2.winningDeckOrCharacterName === popularDeckName) { popularPlayCount++; }
-            if (g2.losingDecksOrCharacterNames === popularDeckName) { popularPlayCount++; }
+            if (g2.winningDeckOrCharacterName === popularDeckName) { popularDeckWins++; popularPlayCount++; }
+            if (g2.losingDecksOrCharacterNames === popularDeckName) { popularDeckLosses++; popularPlayCount++; }
 
             if (g2.winningDeckOrCharacterName === victoriousDeckName) { victoriousDeckWins++; }
             if (g2.losingDecksOrCharacterNames === victoriousDeckName) { victoriousDeckLosses++; }
@@ -141,7 +143,10 @@ class CipherGameStatistics extends Component {
 
         if (popularPlayCount > mostPopularDeck.playCount) {
           mostPopularDeck.name = popularDeckName;
+          mostPopularDeck.wins = popularDeckWins;
+          mostPopularDeck.losses = popularDeckLosses;
           mostPopularDeck.playCount = popularPlayCount;
+          mostPopularDeck.winRate = (popularDeckWins * 100 / (popularDeckLosses + popularDeckWins)).toFixed(3);
           mostPopularDeck.insignia = this.getInsigniaImageFileName(popularInsignia);
         }
         if (victoriousDeckWinLossDiff > mostVictoriousDeck.winLossDiff) {
@@ -229,7 +234,7 @@ class CipherGameStatistics extends Component {
       }
 
     }
-    db.updateGeneralCIPHERGameStats(totalGamesPlayed, mostPopularDeck.name, mostPopularDeck.playCount, mostVictoriousDeck.name, mostVictoriousDeck.wins, mostVictoriousDeck.losses, mostVictoriousDeck.winRate)
+    db.updateGeneralCIPHERGameStats(totalGamesPlayed, mostPopularDeck.name, mostPopularDeck.wins, mostPopularDeck.losses, mostPopularDeck.winRate, mostPopularDeck.playCount, mostVictoriousDeck.name, mostVictoriousDeck.wins, mostVictoriousDeck.losses, mostVictoriousDeck.winRate);
     db.updateCIPHERGameStats("red", colorSpecificTotalGamesPlayed[0], colorSpecificTotalWinsLosses[0][0], colorSpecificTotalWinsLosses[0][1], "NULL", 0, "NULL", 0, 0, 0,
     redMatchupWinsLosses[0][0], redMatchupWinsLosses[0][1], ( (redMatchupWinsLosses[0][0] / (redMatchupWinsLosses[0][0] + redMatchupWinsLosses[0][1]) ) * 100).toFixed(0),
     redMatchupWinsLosses[1][0], redMatchupWinsLosses[1][1], ( (redMatchupWinsLosses[1][0] / (redMatchupWinsLosses[1][0] + redMatchupWinsLosses[1][1]) ) * 100).toFixed(0),
@@ -385,11 +390,17 @@ class CipherGameStatistics extends Component {
           <div className = "stats-table-title">Most Popular Deck</div>
           <div className = "rankings-row rankings-header"><b>
             <span className = "rankings-ranking">DECK</span>
-            <span className = "rankings-total">TOTAL GAMES</span></b>
+            <span className = "rankings-wins">WINS</span>
+            <span className = "rankings-losses">LOSSES</span>
+            <span className = "rankings-total">TOTAL GAMES</span>
+            <span className = "rankings-winrate">WINRATE</span></b>
           </div>
           <div className = "rankings-row rankings-row-even">
             <span className = "rankings-ranking"><b>{stats.mostPopularDeckName}</b></span>
+            <span className = "rankings-wins">{stats.mostPopularDeckWinCount}</span>
+            <span className = "rankings-losses">{stats.mostPopularDeckLossCount}</span>
             <span className = "rankings-total">{stats.mostPopularDeckGameCount}</span>
+            <span className = "rankings-winrate">{ stats.mostPopularDeckWinRate }%</span>
           </div>
         </div>
 

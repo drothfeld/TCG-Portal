@@ -92,10 +92,13 @@ export const updateGlobalGameStats = (totalGamesPlayed) =>
   });
 
 // Updates the Fire Emblem Cipher game statistics
-export const updateGeneralCIPHERGameStats = (totalGamesPlayed, mostPopularDeckName, mostPopularDeckGameCount, mostVictoriousDeckName, mostVictoriousDeckWinCount, mostVictoriousDeckLossCount, mostVictoriousDeckWinRate) =>
+export const updateGeneralCIPHERGameStats = (totalGamesPlayed, mostPopularDeckName, mostPopularDeckWinCount, mostPopularDeckLossCount, mostPopularDeckWinRate, mostPopularDeckGameCount, mostVictoriousDeckName, mostVictoriousDeckWinCount, mostVictoriousDeckLossCount, mostVictoriousDeckWinRate) =>
   db.ref(`game-statistics/fireEmblemCipher`).set({
     totalGamesPlayed,
     mostPopularDeckName,
+    mostPopularDeckWinCount,
+    mostPopularDeckLossCount,
+    mostPopularDeckWinRate,
     mostPopularDeckGameCount,
     mostVictoriousDeckName,
     mostVictoriousDeckWinCount,
