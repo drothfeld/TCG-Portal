@@ -367,6 +367,43 @@ class CipherGameStatistics extends Component {
         <br /><br /><br />
 
         <div>
+          <div className = "stats-table-title">Search for Deck Matchup</div>
+          <div className = "rankings-row rankings-header"><b>
+            <input className = "rankings-text-search"
+              style={{ backgroundColor: 'white'}}
+              type = "text"
+              placeholder = "Search for Deck 1:"
+            />
+            <input className = "rankings-text-search"
+              style={{ backgroundColor: 'white'}}
+              type = "text"
+              placeholder = "Search for Deck 2:"
+            />
+            <span className = "rankings-ranking">MATCHUP</span>
+            <span className = "rankings-wins">WINS</span>
+            <span className = "rankings-losses">LOSSES</span>
+            <span className = "rankings-total">TOTAL GAMES</span>
+            <span className = "rankings-winrate">WINRATE</span></b>
+          </div>
+          <div className = "rankings-row rankings-row-even">
+            <span className = "rankings-ranking"><b>DECK 1 VS DECK 2</b></span>
+            <span className = "rankings-wins">0</span>
+            <span className = "rankings-losses">0</span>
+            <span className = "rankings-total">0</span>
+            <span className = "rankings-winrate">0%</span>
+          </div>
+          <div className = "rankings-row rankings-row-odd">
+            <span className = "rankings-ranking"><b>DECK 2 VS DECK 1</b></span>
+            <span className = "rankings-wins">0</span>
+            <span className = "rankings-losses">0</span>
+            <span className = "rankings-total">0</span>
+            <span className = "rankings-winrate">0%</span>
+          </div>
+        </div>
+
+        <br /><br /><br />
+
+        <div>
           <div className = "stats-table-title">Most Victorious Deck</div>
           <div className = "rankings-row rankings-header"><b>
             <span className = "rankings-ranking">DECK</span>
