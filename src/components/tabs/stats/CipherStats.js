@@ -337,6 +337,25 @@ class CipherGameStatistics extends Component {
     var searchedMatchupDeck2 = { matchup: "???", wins: 0, losses: 0, totalGames: 0, winRate: 0, insignia: "" };
     if (textSearchMatchupDeck1 === "" && textSearchMatchupDeck2 === "") { return [searchedMatchupDeck1, searchedMatchupDeck2]; } else { searchedMatchupDeck1.matchup = textSearchMatchupDeck1; searchedMatchupDeck2.matchup = textSearchMatchupDeck2; }
 
+    for (var k in games) {
+      var g = games[k];
+      if (g.cardGame === cardGames.FE_CIPHER) {
+        if (g.winningDeckOrCharacterName === textSearchMatchupDeck1 && g.losingDecksOrCharacterNames === textSearchMatchupDeck2) {
+          searchedMatchupDeck1.insignia = this.getInsigniaImageFileName(g.winningColor); searchedMatchupDeck2.insignia = this.getInsigniaImageFileName(g.losingColors);
+          searchedMatchupDeck1.wins ++; searchedMatchupDeck2.losses ++;
+          searchedMatchupDeck1.totalGames ++; searchedMatchupDeck2.totalGames ++;
+        }
+        else if (g.losingDecksOrCharacterNames === textSearchMatchupDeck1 && g.winningDeckOrCharacterName === textSearchMatchupDeck2) {
+          searchedMatchupDeck1.insignia = this.getInsigniaImageFileName(g.losingColors); searchedMatchupDeck2.insignia = this.getInsigniaImageFileName(g.winningColor);
+          searchedMatchupDeck1.losses ++; searchedMatchupDeck2.wins ++;
+          searchedMatchupDeck1.totalGames ++; searchedMatchupDeck2.totalGames ++;
+        }
+      }
+    }
+    if (searchedMatchupDeck1.totalGames === 0 && searchedMatchupDeck2.totalGames === 0) { return [searchedMatchupDeck1, searchedMatchupDeck2]; }
+    searchedMatchupDeck1.winRate = (searchedMatchupDeck1.wins * 100 / searchedMatchupDeck1.totalGames).toFixed(3);
+    searchedMatchupDeck2.winRate = (searchedMatchupDeck2.wins * 100 / searchedMatchupDeck2.totalGames).toFixed(3);
+
     return [searchedMatchupDeck1, searchedMatchupDeck2];
   }
 
