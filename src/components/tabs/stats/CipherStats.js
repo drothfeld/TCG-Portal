@@ -77,7 +77,9 @@ class CipherGameStatistics extends Component {
             winsAgainstRed: 0, lossesAgainstRed: 1, winsAgainstBlue: 0, lossesAgainstBlue: 1, winsAgainstWhite: 0, lossesAgainstWhite: 1, winsAgainstBlack: 0, lossesAgainstBlack: 1, winsAgainstGreen: 0, lossesAgainstGreen: 1, winsAgainstPurple: 0, lossesAgainstPurple: 1, winsAgainstYellow: 0, lossesAgainstYellow: 1
           }
       },
-      textSearch: ""
+      textSearch: "",
+      textSearchMatchupDeck1: "",
+      textSearchMatchupDeck2: "",
     };
   }
 
@@ -330,9 +332,18 @@ class CipherGameStatistics extends Component {
     return searchedDeck;
   }
 
+  getSearchedMatchup(games, textSearchMatchupDeck1, textSearchMatchupDeck2) {
+    var searchedMatchupDeck1 = { matchup: "???", wins: 0, losses: 0, totalGames: 0, winRate: 0, insignia: "" };
+    var searchedMatchupDeck2 = { matchup: "???", wins: 0, losses: 0, totalGames: 0, winRate: 0, insignia: "" };
+    if (textSearchMatchupDeck1 === "" && textSearchMatchupDeck2 === "") { return [searchedMatchupDeck1, searchedMatchupDeck2]; } else { searchedMatchupDeck1.matchup = textSearchMatchupDeck1; searchedMatchupDeck2.matchup = textSearchMatchupDeck2; }
+
+    return [searchedMatchupDeck1, searchedMatchupDeck2];
+  }
+
   render() {
-    const { games, stats, textSearch } = this.state;
+    const { games, stats, textSearch, textSearchMatchupDeck1, textSearchMatchupDeck2 } = this.state;
     var searchedDeckObject = this.getSearchedDeck(games, textSearch);
+    var searchedMatchupObject = this.getSearchedMatchup(games, textSearchMatchupDeck1, textSearchMatchupDeck2);
 
     return (
       <div>
@@ -371,11 +382,17 @@ class CipherGameStatistics extends Component {
           <div className = "rankings-row rankings-header"><b>
             <input className = "rankings-text-search"
               style={{ backgroundColor: 'white'}}
+              value = { textSearchMatchupDeck1 }
+              onChange = { event => this.setState(byPropKey('textSearchMatchupDeck1', event.target.value))}
+              onBlur = { this.handleBlur('textSearchMatchupDeck1') }
               type = "text"
               placeholder = "Search for Deck 1:"
             />
             <input className = "rankings-text-search"
               style={{ backgroundColor: 'white'}}
+              value = { textSearchMatchupDeck2 }
+              onChange = { event => this.setState(byPropKey('textSearchMatchupDeck2', event.target.value))}
+              onBlur = { this.handleBlur('textSearchMatchupDeck2') }
               type = "text"
               placeholder = "Search for Deck 2:"
             />
@@ -386,18 +403,18 @@ class CipherGameStatistics extends Component {
             <span className = "rankings-winrate">WINRATE</span></b>
           </div>
           <div className = "rankings-row rankings-row-even">
-            <span className = "rankings-ranking"><b>DECK 1 VS DECK 2</b></span>
-            <span className = "rankings-wins">0</span>
-            <span className = "rankings-losses">0</span>
-            <span className = "rankings-total">0</span>
-            <span className = "rankings-winrate">0%</span>
+            <span className = "rankings-ranking"><b>{searchedMatchupObject[0].matchup} VS {searchedMatchupObject[1].matchup}</b></span>
+            <span className = "rankings-wins">{searchedMatchupObject[0].wins}</span>
+            <span className = "rankings-losses">{searchedMatchupObject[0].losses}</span>
+            <span className = "rankings-total">{searchedMatchupObject[0].totalGames}</span>
+            <span className = "rankings-winrate">{searchedMatchupObject[0].winRate}%</span>
           </div>
           <div className = "rankings-row rankings-row-odd">
-            <span className = "rankings-ranking"><b>DECK 2 VS DECK 1</b></span>
-            <span className = "rankings-wins">0</span>
-            <span className = "rankings-losses">0</span>
-            <span className = "rankings-total">0</span>
-            <span className = "rankings-winrate">0%</span>
+            <span className = "rankings-ranking"><b>{searchedMatchupObject[1].matchup} VS {searchedMatchupObject[0].matchup}</b></span>
+            <span className = "rankings-wins">{searchedMatchupObject[1].wins}</span>
+            <span className = "rankings-losses">{searchedMatchupObject[1].losses}</span>
+            <span className = "rankings-total">{searchedMatchupObject[1].totalGames}</span>
+            <span className = "rankings-winrate">{searchedMatchupObject[1].winRate}%</span>
           </div>
         </div>
 
