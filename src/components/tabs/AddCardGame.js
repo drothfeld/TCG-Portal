@@ -177,15 +177,6 @@ class AddCardGameForm extends Component {
             </select>
           </div>
 
-          <label className="addgame-checkbox-container">Battle Royale
-            <input
-              value = { battleRoyale }
-              type= "checkbox"
-              onClick = { this.checkBattleRoyale }
-            />
-            <span className="addgame-checkmark"></span>
-          </label>
-
           <label><b>Date of Game</b></label>
           <input className={["addgame-input", ...Array.from(shouldMarkError('date') && ["error"])
               ].join(" ")} style={{ backgroundColor: '#ccc'}}
