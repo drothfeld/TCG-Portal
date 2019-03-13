@@ -9,7 +9,7 @@ import './Landing.css';
 const LandingPage = () =>
   <div className="landing-container">
     <div className="title-container">
-      <h1 className="title-header">TCG - Portal</h1>
+      <h1 className="landing-title-header">TCG - Portal</h1>
       <SignInButton/>
     </div>
   </div>
@@ -22,11 +22,27 @@ class SignInButton extends Component {
     event.preventDefault();
   }
 
+  navigateToSignUp = (event) => {
+    window.location = '/signup';
+
+    event.preventDefault();
+  }
+
   render() {
     return (
-      <button onClick = { this.navigateToLogin }>
-        Welcome
-      </button>
+      <div>
+        <div>
+        <button className="landing-button" onClick = { this.navigateToLogin }>
+          Login
+        </button>
+        </div>
+
+        <div>
+        <button className="landing-button" onClick = { this.navigateToSignUp }>
+          Sign Up
+        </button>
+        </div>
+      </div>
     );
   }
 }

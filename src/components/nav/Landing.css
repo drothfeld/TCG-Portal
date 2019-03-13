@@ -1,9 +1,32 @@
-.title-header {
+.landing-title-header {
   text-align: center;
-  margin-top: 40%;
+  font-size: 700%;
+  letter-spacing: 5px;
+  color: white;
+  margin-top: 10%;
+}
+
+.landing-button {
+  width: 25%;
+  position: relative;
+  margin-top: 5%;
+  left: 37.5%;
+  font-size: 200%;
+  color: black;
+  background-color: white;
 }
 
 .landing-container {
-  margin-left: 20%;
-  margin-right: 20%;
+  /* The image used */
+  background-image: url('/assets/images/magicTheGathering_background.png');
+
+  /* Full height */
+  height: 100%;
+  width: 100%;
+  position: fixed;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
