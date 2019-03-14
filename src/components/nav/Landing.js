@@ -5,6 +5,7 @@ import {
 
 import '../../main.css';
 import './Landing.css';
+import { PasswordForgetLink } from '../auth/PasswordForget';
 
 const LandingPage = () =>
   <div className="landing-container">
@@ -30,17 +31,17 @@ class SignInButton extends Component {
 
   render() {
     return (
-      <div>
-        <div>
-        <button className="landing-button" onClick = { this.navigateToLogin }>
-          Login
-        </button>
+      <div className="landing-buttons-container">
+        <div className="landing-button-container">
+          <button className="landing-button" onClick = { this.navigateToLogin }>
+            Login
+          </button>
         </div>
 
-        <div>
-        <button className="landing-button" onClick = { this.navigateToSignUp }>
-          Sign Up
-        </button>
+        <div className="landing-button-container">
+          <button className="landing-button" onClick = { this.navigateToSignUp }>
+            Sign Up
+          </button>
         </div>
       </div>
     );
