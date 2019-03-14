@@ -1,7 +1,6 @@
 form {
   padding-left: 25%;
   padding-right: 25%;
-  border: 3px solid #f1f1f1;
 }
 
 input[type=text], input[type=password] {
@@ -13,9 +12,22 @@ input[type=text], input[type=password] {
   box-sizing: border-box;
 }
 
+.signin-container {
+  /* The image used */
+  background-image: url('/assets/images/magicTheGathering_background.png');
+
+  /* Full height */
+  height: 100%;
+  width: 100%;
+  position: fixed;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+}
+
 .image-container {
   text-align: center;
-  margin: 24px 0 12px 0;
+  padding: 24px 0 12px 0;
 }
 
 img.avatar {
@@ -23,14 +35,20 @@ img.avatar {
   border-radius: 50%;
 }
 
+label {
+  color: white;
+}
+
 button {
   background-color: #4CAF50;
+  font-size: 100%;
+  border-radius: 5px;
   color: white;
   padding: 14px 20px;
-  margin: 8px 0;
+  margin: 8px 75%;
   border: none;
   cursor: pointer;
-  width: 100%;
+  width: 25%;
 }
 
 button:hover {

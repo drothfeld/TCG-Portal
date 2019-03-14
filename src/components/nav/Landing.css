@@ -6,29 +6,18 @@
   margin-top: 5%;
 }
 
-.landing-button {
-  font-size: 125%;
-  color: black;
-  background-color: white;
-  margin-top: 20%;
-  margin-bottom: 20%;
-  border-radius: 5px;
-}
-
 .landing-button-container {
-  margin-left: 25%;
-  margin-right: 25%;
+  text-align: center;
+  margin-top: 5%;
+  margin-right: 43%;
 }
 
 .landing-buttons-container {
-  margin-top: 7.5%;
-  background-color: #282828;
-  margin-left: 35%;
-  margin-right: 35%;
-  border-radius: 15px;
-  border-color: white;
-  border-style: solid;
-  border-width: 1px;
+  margin-top: 10%;
+}
+
+.landing-button {
+  font-size: 150%;
 }
 
 .landing-container {

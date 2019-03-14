@@ -12,7 +12,7 @@ import './SignIn.css';
 
 /* Main sign in content display. */
 const SignInPage = ({ history }) =>
-  <div>
+  <div className="signin-container">
     <SignInForm history = { history }/>
     <div className="container">
       <PasswordForgetLink/>

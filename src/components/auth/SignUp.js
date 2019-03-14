@@ -139,7 +139,7 @@ const SignUpLink = () =>
   <p>
     Dont have an account?
     {' '}
-    <Link to = { routes.SIGN_UP }>Sign Up</Link>
+    <Link className="link-text" to = { routes.SIGN_UP }>Sign Up</Link>
   </p>
 
 /* Passing component to withRouter allows
