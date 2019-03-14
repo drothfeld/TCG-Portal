@@ -11,7 +11,7 @@ import './SignUp.css';
 
 /* Main sign up content display. */
 const SignUpPage = ({ history }) =>
-  <div>
+  <div className="signup-container">
     <h1 className="component-title-text">Create an Account</h1>
     <SignUpForm history = { history }/>
   </div>

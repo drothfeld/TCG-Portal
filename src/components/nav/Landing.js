@@ -5,7 +5,6 @@ import {
 
 import '../../main.css';
 import './Landing.css';
-import { PasswordForgetLink } from '../auth/PasswordForget';
 
 const LandingPage = () =>
   <div className="landing-container">

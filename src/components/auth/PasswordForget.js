@@ -7,7 +7,7 @@ import './PasswordForget.css';
 
 /* Main forgot password content display. */
 const PasswordForgetPage = () =>
-  <div>
+  <div className ="passwordforgot-container">
     <h1 className="component-title-text">Forgot Password</h1>
     <PasswordForgetForm />
   </div>

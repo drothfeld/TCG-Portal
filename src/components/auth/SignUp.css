@@ -10,3 +10,20 @@
 p {
   color: white;
 }
+
+h1.component-title-text {
+  color: white;
+}
+
+.signup-container {
+  /* The image used */
+  background-image: url('/assets/images/magicTheGathering_background.png');
+
+  /* Full height */
+  height: 100%;
+  width: 100%;
+  position: fixed;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+}
